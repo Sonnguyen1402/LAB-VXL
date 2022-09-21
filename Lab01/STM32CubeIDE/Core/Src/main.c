@@ -54,49 +54,98 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void display7SEG ( int num ){
+void display7SEG_0 ( int num ){
 // The 6 first segments 0-6 will arrange following
 //clockwise and the rest is center . So turning on or off
 //appreciate segments will display the require number .
 	switch ( num ){
 		case 0:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_6_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_1_Pin | LED7_0_2_Pin | LED7_0_3_Pin | LED7_0_4_Pin | LED7_0_5_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_6_Pin , SET );
 			break ;
 		case 1:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , SET );
-			HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_2_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_3_Pin | LED7_0_4_Pin | LED7_0_5_Pin | LED7_0_6_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_1_Pin | LED7_0_2_Pin , RESET );
 			break ;
 		case 2:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_3_Pin | LED7_4_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_2_Pin | LED7_5_Pin , SET);
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_1_Pin | LED7_0_3_Pin | LED7_0_4_Pin | LED7_0_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_2_Pin | LED7_0_5_Pin , SET);
 			break ;
 		case 3:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_4_Pin | LED7_5_Pin , SET);
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_1_Pin | LED7_0_2_Pin | LED7_0_3_Pin | LED7_0_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_4_Pin | LED7_0_5_Pin , SET);
 			break ;
 		case 4:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_3_Pin | LED7_4_Pin , SET );
-			HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_2_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_3_Pin | LED7_0_4_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_1_Pin | LED7_0_2_Pin | LED7_0_5_Pin | LED7_0_6_Pin , RESET );
 			break ;
 		case 5:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_4_Pin , SET);
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_2_Pin | LED7_0_3_Pin | LED7_0_5_Pin | LED7_0_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_1_Pin | LED7_0_4_Pin , SET);
 			break ;
 		case 6:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_1_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_2_Pin | LED7_0_3_Pin | LED7_0_4_Pin | LED7_0_5_Pin | LED7_0_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_1_Pin , SET );
 			break ;
 		case 7:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_1_Pin | LED7_0_2_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_3_Pin | LED7_0_4_Pin | LED7_0_5_Pin | LED7_0_6_Pin , SET );
 			break ;
 		case 8:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_1_Pin | LED7_0_2_Pin | LED7_0_3_Pin | LED7_0_4_Pin | LED7_0_5_Pin | LED7_0_6_Pin , RESET );
 		break ;
 		case 9:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_4_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_0_Pin | LED7_0_1_Pin | LED7_0_2_Pin | LED7_0_3_Pin | LED7_0_5_Pin | LED7_0_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_0_4_Pin , SET );
+			break ;
+		default :
+			break ;
+	}
+}
+
+void display7SEG_1 ( int num ){
+// The 6 first segments 0-6 will arrange following
+//clockwise and the rest is center . So turning on or off
+//appreciate segments will display the require number .
+	switch ( num ){
+		case 0:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_1_Pin | LED7_1_2_Pin | LED7_1_3_Pin | LED7_1_4_Pin | LED7_1_5_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_1_6_Pin , SET );
+			break ;
+		case 1:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_3_Pin | LED7_1_4_Pin | LED7_1_5_Pin | LED7_1_6_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB , LED7_1_1_Pin | LED7_1_2_Pin , RESET );
+			break ;
+		case 2:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_1_Pin | LED7_1_3_Pin | LED7_1_4_Pin | LED7_1_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_1_2_Pin | LED7_1_5_Pin , SET);
+			break ;
+		case 3:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_1_Pin | LED7_1_2_Pin | LED7_1_3_Pin | LED7_1_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_1_4_Pin | LED7_1_5_Pin , SET);
+			break ;
+		case 4:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_3_Pin | LED7_1_4_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB , LED7_1_1_Pin | LED7_1_2_Pin | LED7_1_5_Pin | LED7_1_6_Pin , RESET );
+			break ;
+		case 5:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_2_Pin | LED7_1_3_Pin | LED7_1_5_Pin | LED7_1_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_1_1_Pin | LED7_1_4_Pin , SET);
+			break ;
+		case 6:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_2_Pin | LED7_1_3_Pin | LED7_1_4_Pin | LED7_1_5_Pin | LED7_1_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_1_1_Pin , SET );
+			break ;
+		case 7:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_1_Pin | LED7_1_2_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_1_3_Pin | LED7_1_4_Pin | LED7_1_5_Pin | LED7_1_6_Pin , SET );
+			break ;
+		case 8:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_1_Pin | LED7_1_2_Pin | LED7_1_3_Pin | LED7_1_4_Pin | LED7_1_5_Pin | LED7_1_6_Pin , RESET );
+		break ;
+		case 9:
+			HAL_GPIO_WritePin (GPIOB , LED7_1_0_Pin | LED7_1_1_Pin | LED7_1_2_Pin | LED7_1_3_Pin | LED7_1_5_Pin | LED7_1_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB , LED7_1_4_Pin , SET );
 			break ;
 		default :
 			break ;
@@ -133,68 +182,75 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  //uint16_t trafficLight = 2000;
+  int time = 1000;
   /* USER CODE END 2 */
-  int counter = 0;
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if( counter >= 10) counter = 0;
-	  	  display7SEG ( counter ++) ;
-	  HAL_Delay (1000) ;
 	  // I use delay 10ms , so 1s is need to count 100 times
-	  // Declare uint16_t trafficLight = 2000;
-	  // I use HAL_GPIO_TogglePin so I need a start state .Case 2000 , 1500 , 1300 are executed only one time . Case 1000 , 500 , 300 , 0 will be repeated .
-	  /*switch ( trafficLight ){
-	  case 2000: // red on , yellow off , green off
-		  HAL_GPIO_TogglePin ( P2_GPIO_Port , P2_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
-		  HAL_GPIO_TogglePin ( P4_GPIO_Port , P4_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
+	  // Declare int time = 1000;
+	  // Function display7SEG_0 , display7SEG_0 is similar to display7SEG present above .
+	  switch ( time ){
+	  case 1000:
+		  HAL_GPIO_WritePin (GPIOA , P1_Pin | P6_Pin , RESET );
+		  HAL_GPIO_WritePin (GPIOA , P2_Pin | P3_Pin | P4_Pin | P5_Pin , SET );
+		  display7SEG_0 (5) ;
+		  display7SEG_1 (3) ;
 		  break ;
-	  case 1700: // red1 , yellow2 on; the rest off
-		  HAL_GPIO_TogglePin ( P6_GPIO_Port , P6_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
+	  case 900:
+		  display7SEG_0 (4) ;
+		  display7SEG_1 (2) ;
 		  break ;
-	  case 1500: // red off , yellow on , green off
-		  HAL_GPIO_TogglePin ( P1_GPIO_Port , P1_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
-		  HAL_GPIO_TogglePin ( P4_GPIO_Port , P4_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
+	  case 800:
+		  display7SEG_0 (3) ;
+		  display7SEG_1 (1) ;
 		  break ;
-	  case 1300: // yellow1 , red2 on; the rest off
-		  HAL_GPIO_TogglePin ( P2_GPIO_Port , P2_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
+	  case 700:
+		  HAL_GPIO_WritePin (GPIOA , P5_Pin , RESET );
+		  HAL_GPIO_WritePin (GPIOA , P4_Pin | P6_Pin , SET );
+		  display7SEG_0 (2) ;
+		  display7SEG_1 (2) ;
 		  break ;
-	  case 1000: // red1 , green2 on; the rest off
-		  HAL_GPIO_TogglePin ( P1_GPIO_Port , P1_Pin );
-		  HAL_GPIO_TogglePin ( P2_GPIO_Port , P2_Pin );
-		  HAL_GPIO_TogglePin ( P4_GPIO_Port , P4_Pin );
-		  HAL_GPIO_TogglePin ( P6_GPIO_Port , P6_Pin );
+	  case 600:
+		  display7SEG_0 (1) ;
+		  display7SEG_1 (1) ;
 		  break ;
-	  case 700: // red1 , yellow2 on; the rest off
-		  HAL_GPIO_TogglePin ( P6_GPIO_Port , P6_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
+	  case 500:
+		  HAL_GPIO_WritePin (GPIOA , P4_Pin | P3_Pin , RESET );
+		  HAL_GPIO_WritePin (GPIOA , P1_Pin | P2_Pin | P5_Pin | P6_Pin , SET );
+		  display7SEG_0 (3) ;
+		  display7SEG_1 (5) ;
 		  break ;
-	  case 500: // green1 , red2 on; the rest off
-		  HAL_GPIO_TogglePin ( P1_GPIO_Port , P1_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
-		  HAL_GPIO_TogglePin ( P4_GPIO_Port , P4_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
+	  case 400:
+		  display7SEG_0 (2) ;
+		  display7SEG_1 (4) ;
 		  break ;
-	  case 200: // yellow1 , red2 on; the rest off
-		  HAL_GPIO_TogglePin ( P2_GPIO_Port , P2_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
+	  case 300:
+		  display7SEG_0 (1) ;
+		  display7SEG_1 (3) ;
+		  break ;
+	  case 200:
+		  HAL_GPIO_WritePin (GPIOA , P2_Pin , RESET );
+		  HAL_GPIO_WritePin (GPIOA , P1_Pin | P3_Pin , SET );
+		  display7SEG_0 (2) ;
+		  display7SEG_1 (2) ;
+	  break ;
+	  case 100:
+		  display7SEG_0 (1) ;
+		  display7SEG_1 (1) ;
 		  break ;
 	  case 0:
-		  trafficLight = 1001; // Set to 1001 because I have trafficLight -- after that .
+		  time = 1001;
 		  break ;
-	  default:
+	  default :
 		  break ;
 	  }
-	  trafficLight = trafficLight - 1;
-	  HAL_Delay (10) ;*/
+	  time --;
+
+	  HAL_Delay (10) ;
+
 
     /* USER CODE END WHILE */
 
@@ -256,8 +312,10 @@ static void MX_GPIO_Init(void)
                           |P5_Pin|P6_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED7_0_Pin|LED7_1_Pin|LED7_2_Pin|LED7_3_Pin
-                          |LED7_4_Pin|LED7_5_Pin|LED7_6_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED7_0_0_Pin|LED7_0_1_Pin|LED7_0_2_Pin|LED7_1_3_Pin
+                          |LED7_1_4_Pin|LED7_1_5_Pin|LED7_1_6_Pin|LED7_0_3_Pin
+                          |LED7_0_4_Pin|LED7_0_5_Pin|LED7_0_6_Pin|LED7_1_0_Pin
+                          |LED7_1_1_Pin|LED7_1_2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : P1_Pin P2_Pin P3_Pin P4_Pin
                            P5_Pin P6_Pin */
@@ -268,10 +326,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED7_0_Pin LED7_1_Pin LED7_2_Pin LED7_3_Pin
-                           LED7_4_Pin LED7_5_Pin LED7_6_Pin */
-  GPIO_InitStruct.Pin = LED7_0_Pin|LED7_1_Pin|LED7_2_Pin|LED7_3_Pin
-                          |LED7_4_Pin|LED7_5_Pin|LED7_6_Pin;
+  /*Configure GPIO pins : LED7_0_0_Pin LED7_0_1_Pin LED7_0_2_Pin LED7_1_3_Pin
+                           LED7_1_4_Pin LED7_1_5_Pin LED7_1_6_Pin LED7_0_3_Pin
+                           LED7_0_4_Pin LED7_0_5_Pin LED7_0_6_Pin LED7_1_0_Pin
+                           LED7_1_1_Pin LED7_1_2_Pin */
+  GPIO_InitStruct.Pin = LED7_0_0_Pin|LED7_0_1_Pin|LED7_0_2_Pin|LED7_1_3_Pin
+                          |LED7_1_4_Pin|LED7_1_5_Pin|LED7_1_6_Pin|LED7_0_3_Pin
+                          |LED7_0_4_Pin|LED7_0_5_Pin|LED7_0_6_Pin|LED7_1_0_Pin
+                          |LED7_1_1_Pin|LED7_1_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
