@@ -86,22 +86,49 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  uint16_t trafficLight = 2000;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin );
-	  //HAL_Delay (1000) ;
-	  HAL_GPIO_TogglePin (LED_RED_GPIO_Port , LED_RED_Pin);
-	  HAL_Delay (2000) ;
-	  HAL_GPIO_TogglePin (LED_RED_GPIO_Port , LED_RED_Pin);
-
-	  HAL_GPIO_TogglePin (LED_YELLOW_GPIO_Port , LED_YELLOW_Pin);
-	  HAL_Delay (2000) ;
-	  HAL_GPIO_TogglePin (LED_YELLOW_GPIO_Port , LED_YELLOW_Pin);
+	  // I use delay 10ms , so 1s is need to count 100 times
+	  // Declare uint16_t trafficLight = 2000;
+	  // I use HAL_GPIO_TogglePin so I need a start state .Case 2000 , 1500 , 1300 are executed only one time . Case 1000 , 500 , 300 , 0 will be repeated .
+	  switch ( trafficLight ){
+	  case 2000: // red on , yellow off , green off
+		  HAL_GPIO_TogglePin ( LED_YELLOW_GPIO_Port, LED_YELLOW_Pin );
+		  HAL_GPIO_TogglePin ( LED_GREEN_GPIO_Port, LED_GREEN_Pin );
+		  break ;
+	  case 1500: // red off , yellow on , green off
+		  HAL_GPIO_TogglePin ( LED_RED_GPIO_Port, LED_RED_Pin );
+		  HAL_GPIO_TogglePin ( LED_YELLOW_GPIO_Port, LED_YELLOW_Pin );
+		  break ;
+	  case 1300: // red off , yellow off , green on
+		  HAL_GPIO_TogglePin ( LED_YELLOW_GPIO_Port, LED_YELLOW_Pin );
+		  HAL_GPIO_TogglePin ( LED_GREEN_GPIO_Port ,LED_GREEN_Pin );
+		  break ;
+	  case 1000: // red on , yellow off , green off
+		  HAL_GPIO_TogglePin ( LED_RED_GPIO_Port ,LED_RED_Pin );
+		  HAL_GPIO_TogglePin ( LED_GREEN_GPIO_Port ,LED_GREEN_Pin );
+		  break ;
+	  case 500: // red off , yellow on , green off
+		  HAL_GPIO_TogglePin ( LED_RED_GPIO_Port ,LED_RED_Pin );
+		  HAL_GPIO_TogglePin ( LED_YELLOW_GPIO_Port ,LED_YELLOW_Pin );
+		  break ;
+	  case 300: // red off , yellow off , green on
+		  HAL_GPIO_TogglePin ( LED_YELLOW_GPIO_Port ,LED_YELLOW_Pin );
+		  HAL_GPIO_TogglePin ( LED_GREEN_GPIO_Port ,LED_GREEN_Pin );
+		  break ;
+	  case 0:
+		  trafficLight = 1001; // Set to 1001 because I have trafficLight -- after that .
+		  break ;
+	  default :
+		  break ;
+	  }
+	  trafficLight = trafficLight - 1;
+	  HAL_Delay (10) ;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -157,10 +184,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin;
+  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
+  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
