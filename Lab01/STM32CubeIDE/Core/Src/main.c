@@ -55,48 +55,45 @@ static void MX_GPIO_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void display7SEG ( int num ){
-// The 6 first segments 0-6 will arrange following
-//clockwise and the rest is center . So turning on or off
-//appreciate segments will display the require number .
 	switch ( num ){
 		case 0:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_6_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin, RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_6_Pin, SET );
 			break ;
 		case 1:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , SET );
-			HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_2_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin, SET );
+			HAL_GPIO_WritePin (GPIOB, LED7_1_Pin | LED7_2_Pin, RESET );
 			break ;
 		case 2:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_3_Pin | LED7_4_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_2_Pin | LED7_5_Pin , SET);
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_1_Pin | LED7_3_Pin | LED7_4_Pin | LED7_6_Pin, RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_2_Pin | LED7_5_Pin, SET);
 			break ;
 		case 3:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_4_Pin | LED7_5_Pin , SET);
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_6_Pin, RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_4_Pin | LED7_5_Pin, SET);
 			break ;
 		case 4:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_3_Pin | LED7_4_Pin , SET );
-			HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_2_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_3_Pin | LED7_4_Pin, SET );
+			HAL_GPIO_WritePin (GPIOB, LED7_1_Pin | LED7_2_Pin | LED7_5_Pin | LED7_6_Pin, RESET );
 			break ;
 		case 5:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_4_Pin , SET);
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin, RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_1_Pin | LED7_4_Pin, SET);
 			break ;
 		case 6:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_1_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin, RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_1_Pin, SET );
 			break ;
 		case 7:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_1_Pin | LED7_2_Pin, RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin, SET );
 			break ;
 		case 8:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin, RESET );
 		break ;
 		case 9:
-			HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOB , LED7_4_Pin , SET );
+			HAL_GPIO_WritePin (GPIOB, LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin, RESET );
+			HAL_GPIO_WritePin (GPIOB, LED7_4_Pin, SET );
 			break ;
 		default :
 			break ;
@@ -141,61 +138,8 @@ int main(void)
   while (1)
   {
 	  if( counter >= 10) counter = 0;
-	  	  display7SEG ( counter ++) ;
+	  	  display7SEG ( counter++) ;
 	  HAL_Delay (1000) ;
-	  // I use delay 10ms , so 1s is need to count 100 times
-	  // Declare uint16_t trafficLight = 2000;
-	  // I use HAL_GPIO_TogglePin so I need a start state .Case 2000 , 1500 , 1300 are executed only one time . Case 1000 , 500 , 300 , 0 will be repeated .
-	  /*switch ( trafficLight ){
-	  case 2000: // red on , yellow off , green off
-		  HAL_GPIO_TogglePin ( P2_GPIO_Port , P2_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
-		  HAL_GPIO_TogglePin ( P4_GPIO_Port , P4_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
-		  break ;
-	  case 1700: // red1 , yellow2 on; the rest off
-		  HAL_GPIO_TogglePin ( P6_GPIO_Port , P6_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
-		  break ;
-	  case 1500: // red off , yellow on , green off
-		  HAL_GPIO_TogglePin ( P1_GPIO_Port , P1_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
-		  HAL_GPIO_TogglePin ( P4_GPIO_Port , P4_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
-		  break ;
-	  case 1300: // yellow1 , red2 on; the rest off
-		  HAL_GPIO_TogglePin ( P2_GPIO_Port , P2_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
-		  break ;
-	  case 1000: // red1 , green2 on; the rest off
-		  HAL_GPIO_TogglePin ( P1_GPIO_Port , P1_Pin );
-		  HAL_GPIO_TogglePin ( P2_GPIO_Port , P2_Pin );
-		  HAL_GPIO_TogglePin ( P4_GPIO_Port , P4_Pin );
-		  HAL_GPIO_TogglePin ( P6_GPIO_Port , P6_Pin );
-		  break ;
-	  case 700: // red1 , yellow2 on; the rest off
-		  HAL_GPIO_TogglePin ( P6_GPIO_Port , P6_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
-		  break ;
-	  case 500: // green1 , red2 on; the rest off
-		  HAL_GPIO_TogglePin ( P1_GPIO_Port , P1_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
-		  HAL_GPIO_TogglePin ( P4_GPIO_Port , P4_Pin );
-		  HAL_GPIO_TogglePin ( P5_GPIO_Port , P5_Pin );
-		  break ;
-	  case 200: // yellow1 , red2 on; the rest off
-		  HAL_GPIO_TogglePin ( P2_GPIO_Port , P2_Pin );
-		  HAL_GPIO_TogglePin ( P3_GPIO_Port , P3_Pin );
-		  break ;
-	  case 0:
-		  trafficLight = 1001; // Set to 1001 because I have trafficLight -- after that .
-		  break ;
-	  default:
-		  break ;
-	  }
-	  trafficLight = trafficLight - 1;
-	  HAL_Delay (10) ;*/
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
