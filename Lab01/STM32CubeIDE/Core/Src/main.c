@@ -19,7 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "button.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -57,98 +57,96 @@ static void MX_TIM2_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-// Cau 07
+// Exercise 7
 void clearAllClock (){
-	HAL_GPIO_WritePin (GPIOA , LED_0_Pin | LED_1_Pin | LED_2_Pin |
-			LED_3_Pin | LED_4_Pin | LED_5_Pin | LED_6_Pin | LED_7_Pin |
-			LED_8_Pin | LED_9_Pin | LED_10_Pin | LED_11_Pin , SET);
+	HAL_GPIO_WritePin (GPIOA, LED_0_Pin | LED_1_Pin | LED_2_Pin | LED_3_Pin | LED_4_Pin | LED_5_Pin | LED_6_Pin | LED_7_Pin | LED_8_Pin | LED_9_Pin | LED_10_Pin | LED_11_Pin, SET);
 }
 
-// Cau 08
-void setNumberOnClock (int num ){
+// Exercise 8
+void setNumberOnClock (int num){
 	switch ( num ){
 		case 0:
-			HAL_GPIO_WritePin (GPIOA , LED_0_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_0_Pin, RESET );
+			break;
 		case 1:
-			HAL_GPIO_WritePin (GPIOA , LED_1_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_1_Pin, RESET );
+			break;
 		case 2:
-			HAL_GPIO_WritePin (GPIOA , LED_2_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_2_Pin, RESET );
+			break;
 		case 3:
-			HAL_GPIO_WritePin (GPIOA , LED_3_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_3_Pin, RESET );
+			break;
 		case 4:
-			HAL_GPIO_WritePin (GPIOA , LED_4_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_4_Pin, RESET );
+			break;
 		case 5:
-			HAL_GPIO_WritePin (GPIOA , LED_5_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_5_Pin, RESET );
+			break;
 		case 6:
-			HAL_GPIO_WritePin (GPIOA , LED_6_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_6_Pin, RESET );
+			break;
 		case 7:
-			HAL_GPIO_WritePin (GPIOA , LED_7_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_7_Pin, RESET );
+			break;
 		case 8:
-			HAL_GPIO_WritePin (GPIOA , LED_8_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_8_Pin, RESET );
+			break;
 		case 9:
-			HAL_GPIO_WritePin (GPIOA , LED_9_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_9_Pin, RESET );
+			break;
 		case 10:
-			HAL_GPIO_WritePin (GPIOA , LED_10_Pin , RESET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_10_Pin, RESET );
+			break;
 		case 11:
-			HAL_GPIO_WritePin (GPIOA , LED_11_Pin , RESET );
-			break ;
-		default :
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_11_Pin, RESET );
+			break;
+		default:
+			break;
 	}
 }
 
-// Cau 09
-void clearNumberOnClock ( int num ){
+// Exercise 9
+void clearNumberOnClock (int num){
 	switch ( num ){
 		case 0:
-			HAL_GPIO_WritePin (GPIOA , LED_0_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_0_Pin, SET );
+			break;
 		case 1:
-			HAL_GPIO_WritePin (GPIOA , LED_1_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_1_Pin, SET );
+			break;
 		case 2:
-			HAL_GPIO_WritePin (GPIOA , LED_2_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_2_Pin, SET );
+			break;
 		case 3:
-			HAL_GPIO_WritePin (GPIOA , LED_3_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_3_Pin, SET );
+			break;
 		case 4:
-			HAL_GPIO_WritePin (GPIOA , LED_4_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_4_Pin, SET );
+			break;
 		case 5:
-			HAL_GPIO_WritePin (GPIOA , LED_5_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_5_Pin, SET );
+			break;
 		case 6:
-			HAL_GPIO_WritePin (GPIOA , LED_6_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_6_Pin, SET );
+			break;
 		case 7:
-			HAL_GPIO_WritePin (GPIOA , LED_7_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_7_Pin, SET );
+			break;
 		case 8:
-			HAL_GPIO_WritePin (GPIOA , LED_8_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_8_Pin, SET );
+			break;
 		case 9:
-			HAL_GPIO_WritePin (GPIOA , LED_9_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_9_Pin, SET );
+			break;
 		case 10:
-			HAL_GPIO_WritePin (GPIOA , LED_10_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_10_Pin, SET );
+			break;
 		case 11:
-			HAL_GPIO_WritePin (GPIOA , LED_11_Pin , SET );
-			break ;
+			HAL_GPIO_WritePin (GPIOA, LED_11_Pin, SET );
+			break;
 		default:
-			break ;
+			break;
 	}
 }
 /* USER CODE END 0 */
@@ -183,17 +181,49 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  int hour = 0, minute = 15, second = 0, start = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(HAL_GPIO_ReadPin(Button1_GPIO_Port, Button1_Pin) == GPIO_PIN_SET){
-		  HAL_GPIO_WritePin(GPIOA , LED_0_Pin , SET );
-	  } else {
-		  HAL_GPIO_WritePin(GPIOA , LED_0_Pin , RESET );
+	  if(second % 5 == 0 || start == 0) {
+		  start = 1;
+		  clearAllClock();
 	  }
+	  if(second == 0)
+		  setNumberOnClock(11);
+	  else {
+		  if ((second / 5 -1) < 0) setNumberOnClock(11);
+		  else setNumberOnClock (second / 5 - 1);
+	  }
+	  if(minute == 0)
+		  setNumberOnClock(11);
+	  else {
+		  if ((minute / 5 -1) < 0) setNumberOnClock(11);
+		  else setNumberOnClock(minute / 5 - 1);
+	  }
+	  if ((hour % 12) == 0)
+		  setNumberOnClock(11);
+	  else {
+		  setNumberOnClock(hour % 12 - 1);
+	  }
+
+	  second++;
+
+	  if(second == 60){
+		  second = 0;
+		  minute++;
+	  }
+	  if(minute == 60){
+		  minute = 0;
+		  hour++;
+	  }
+	  if(hour == 24){
+		  hour = 0;
+	  }
+	  HAL_Delay(100);
 
     /* USER CODE END WHILE */
 
