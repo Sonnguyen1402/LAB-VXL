@@ -86,61 +86,59 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int time = 1200;
+  int counter = 120;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  // I use delay 10ms , so 1s is need to count 100 times
-	  // Declare int time = 1200;
-	  switch ( time ){
-	  case 1200:
-		  HAL_GPIO_WritePin (GPIOA , LED_1_Pin | LED_2_Pin | LED_3_Pin | LED_4_Pin | LED_5_Pin | LED_6_Pin | LED_7_Pin | LED_8_Pin | LED_9_Pin | LED_10_Pin | LED_11_Pin , SET );
-		  HAL_GPIO_WritePin (GPIOA , LED_0_Pin , RESET );
-		  break ;
-	  case 1100:
-		  HAL_GPIO_TogglePin (GPIOA , LED_0_Pin | LED_1_Pin );
-		  break ;
-	  case 1000:
-		  HAL_GPIO_TogglePin (GPIOA , LED_1_Pin | LED_2_Pin );
-		  break ;
-	  case 900:
-		  HAL_GPIO_TogglePin (GPIOA , LED_2_Pin | LED_3_Pin );
-		  break ;
-	  case 800:
-		  HAL_GPIO_TogglePin (GPIOA , LED_3_Pin | LED_4_Pin );
-		  break ;
-	  case 700:
-		  HAL_GPIO_TogglePin (GPIOA , LED_4_Pin | LED_5_Pin );
-		  break ;
-	  case 600:
-		  HAL_GPIO_TogglePin (GPIOA , LED_5_Pin | LED_6_Pin );
-		  break ;
-	  case 500:
-		  HAL_GPIO_TogglePin (GPIOA , LED_6_Pin | LED_7_Pin );
-		  break ;
-	  case 400:
-		  HAL_GPIO_TogglePin (GPIOA , LED_7_Pin | LED_8_Pin );
-		  break ;
-	  case 300:
-		  HAL_GPIO_TogglePin (GPIOA , LED_8_Pin | LED_9_Pin );
-		  break ;
-	  case 200:
-		  HAL_GPIO_TogglePin (GPIOA , LED_9_Pin | LED_10_Pin );
-		  break ;
+	  switch ( counter ){
+	  case 120:
+		  HAL_GPIO_WritePin (GPIOA, LED_1_Pin | LED_2_Pin | LED_3_Pin | LED_4_Pin | LED_5_Pin | LED_6_Pin | LED_7_Pin | LED_8_Pin | LED_9_Pin | LED_10_Pin | LED_11_Pin, SET );
+		  HAL_GPIO_WritePin (GPIOA, LED_0_Pin, RESET );
+		  break;
+	  case 110:
+		  HAL_GPIO_TogglePin (GPIOA, LED_0_Pin | LED_1_Pin );
+		  break;
 	  case 100:
-		  HAL_GPIO_TogglePin (GPIOA , LED_10_Pin | LED_11_Pin );
-		  break ;
+		  HAL_GPIO_TogglePin (GPIOA, LED_1_Pin | LED_2_Pin );
+		  break;
+	  case 90:
+		  HAL_GPIO_TogglePin (GPIOA, LED_2_Pin | LED_3_Pin );
+		  break;
+	  case 80:
+		  HAL_GPIO_TogglePin (GPIOA, LED_3_Pin | LED_4_Pin );
+		  break;
+	  case 70:
+		  HAL_GPIO_TogglePin (GPIOA, LED_4_Pin | LED_5_Pin );
+		  break;
+	  case 60:
+		  HAL_GPIO_TogglePin (GPIOA, LED_5_Pin | LED_6_Pin );
+		  break;
+	  case 50:
+		  HAL_GPIO_TogglePin (GPIOA, LED_6_Pin | LED_7_Pin );
+		  break;
+	  case 40:
+		  HAL_GPIO_TogglePin (GPIOA, LED_7_Pin | LED_8_Pin );
+		  break;
+	  case 30:
+		  HAL_GPIO_TogglePin (GPIOA, LED_8_Pin | LED_9_Pin );
+		  break;
+	  case 20:
+		  HAL_GPIO_TogglePin (GPIOA, LED_9_Pin | LED_10_Pin );
+		  break;
+	  case 10:
+		  HAL_GPIO_TogglePin (GPIOA, LED_10_Pin | LED_11_Pin );
+		  break;
 	  case 0:
-		  time = 1201;
-		  break ;
-	  default :
-		  break ;
+		  counter = 121;
+		  break;
+	  default:
+		  break;
 	  }
-	  time --;
-	  HAL_Delay (10) ;
+	  counter--;
+	  HAL_Delay (100) ;
 
 
     /* USER CODE END WHILE */
