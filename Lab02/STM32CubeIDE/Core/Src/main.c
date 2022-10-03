@@ -139,28 +139,11 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer1(100);
-  setTimer2(50);
-
-  int state = 1;
   while (1)
   {
 	  if (timer1_flag == 1){
 		  setTimer1(100);
-		  HAL_GPIO_TogglePin (GPIOA, LED_RED_Pin );
-	  }
-	  if( timer2_flag == 1 && state == 1){
-		  setTimer2(50);
-		  display7SEG(1);
-		  HAL_GPIO_WritePin (GPIOA, EN0_Pin, RESET );
-		  HAL_GPIO_WritePin (GPIOA, EN1_Pin, SET );
-		  state = 2;
-	  }
-	  else if( timer2_flag == 1 && state == 2){
-		  setTimer2(50);
-		  display7SEG(2);
-		  HAL_GPIO_WritePin (GPIOA, EN0_Pin, SET );
-		  HAL_GPIO_WritePin (GPIOA, EN1_Pin, RESET );
-		  state = 1;
+		  HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
 	  }
     /* USER CODE END WHILE */
 
@@ -288,8 +271,24 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+int timer_counter = 50, state = 1;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	timerRun();
+	timerRun(); // using for toggle LED RED
+
+	if(timer_counter == 50 && state == 1){
+		display7SEG(1);
+		HAL_GPIO_WritePin (GPIOA, EN0_Pin, RESET );
+		HAL_GPIO_WritePin (GPIOA, EN1_Pin, SET );
+		state = 2;
+	}
+	else if(timer_counter == 50 && state == 2){
+		display7SEG(2);
+		HAL_GPIO_WritePin (GPIOA, EN0_Pin, SET );
+		HAL_GPIO_WritePin (GPIOA, EN1_Pin, RESET );
+		state = 1;
+	}
+	timer_counter--;
+	if(timer_counter <= 0) timer_counter = 50;
 }
 /* USER CODE END 4 */
 

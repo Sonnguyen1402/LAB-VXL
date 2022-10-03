@@ -31,10 +31,10 @@ void timerRun(){
 			timer1_flag = 1;
 		}
 	}
-	if (timer2_counter > 0){
+	/*if (timer2_counter > 0){
 		timer2_counter--;
 		if (timer2_counter <= 0){
 			timer2_flag = 1;
 		}
-	}
+	}*/
 }
