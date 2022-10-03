@@ -138,11 +138,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer1(100);
+  setTimer1(50);
   while (1)
   {
 	  if (timer1_flag == 1){
-		  setTimer1(100);
+		  setTimer1(50);
 		  HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
 	  }
     /* USER CODE END WHILE */
