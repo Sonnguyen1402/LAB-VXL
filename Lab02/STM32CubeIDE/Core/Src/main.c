@@ -148,7 +148,7 @@ void updateClockBuffer(){
 
 const int MAX_LED_MATRIX = 8;
 int index_led_matrix = 0;
-uint8_t matrix_buffer[8] = {0x16, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+uint8_t matrix_buffer[8] = {0x00, 0xFC, 0x16, 0x13 , 0x13, 0x16, 0xFC, 0x00};
 
 void displayRowLEDMatrix ( uint8_t value ){
 	HAL_GPIO_WritePin (GPIOB, ROW0_Pin, !(value &1) );
@@ -161,47 +161,48 @@ void displayRowLEDMatrix ( uint8_t value ){
 	HAL_GPIO_WritePin (GPIOB, ROW7_Pin, !((value>>7)&1));
 }
 
-void updateLEDMatrix (int index ){
-	switch ( index ){
+int shift = 0;
+void updateLEDMatrix (int index){
+	switch (index){
 		case 0:
-			HAL_GPIO_WritePin (GPIOA , ENM0_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOA , ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin , SET );
-			displayRowLEDMatrix ( matrix_buffer [0]);
+			HAL_GPIO_WritePin (GPIOA, ENM0_Pin, RESET);
+			HAL_GPIO_WritePin (GPIOA, ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin, SET );
+			displayRowLEDMatrix (matrix_buffer[(0 + shift) % 8]);
 			break;
 		case 1:
-			HAL_GPIO_WritePin (GPIOA , ENM1_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOA , ENM0_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin , SET );
-			displayRowLEDMatrix ( matrix_buffer [1]);
+			HAL_GPIO_WritePin (GPIOA, ENM1_Pin, RESET);
+			HAL_GPIO_WritePin (GPIOA, ENM0_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin, SET );
+			displayRowLEDMatrix (matrix_buffer[(1 + shift) % 8]);
 			break;
 		case 2:
-			HAL_GPIO_WritePin (GPIOA , ENM2_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOA , ENM0_Pin | ENM1_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin , SET );
-			displayRowLEDMatrix ( matrix_buffer [2]);
+			HAL_GPIO_WritePin (GPIOA, ENM2_Pin, RESET);
+			HAL_GPIO_WritePin (GPIOA, ENM0_Pin | ENM1_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin, SET );
+			displayRowLEDMatrix (matrix_buffer[(2 + shift) % 8]);
 			break;
 		case 3:
-			HAL_GPIO_WritePin (GPIOA , ENM3_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOA , ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin , SET );
-			displayRowLEDMatrix ( matrix_buffer [3]);
+			HAL_GPIO_WritePin (GPIOA, ENM3_Pin, RESET);
+			HAL_GPIO_WritePin (GPIOA, ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin, SET );
+			displayRowLEDMatrix (matrix_buffer[(3 + shift) % 8]);
 			break;
 		case 4:
-			HAL_GPIO_WritePin (GPIOA , ENM4_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOA , ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin , SET );
-			displayRowLEDMatrix ( matrix_buffer [4]);
+			HAL_GPIO_WritePin (GPIOA, ENM4_Pin, RESET);
+			HAL_GPIO_WritePin (GPIOA, ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin, SET );
+			displayRowLEDMatrix (matrix_buffer[(4 + shift) % 8]);
 			break;
 		case 5:
-			HAL_GPIO_WritePin (GPIOA , ENM5_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOA , ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM6_Pin | ENM7_Pin , SET );
-			displayRowLEDMatrix ( matrix_buffer [5]);
+			HAL_GPIO_WritePin (GPIOA, ENM5_Pin, RESET);
+			HAL_GPIO_WritePin (GPIOA, ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM6_Pin | ENM7_Pin, SET );
+			displayRowLEDMatrix (matrix_buffer[(5 + shift) % 8]);
 			break;
 		case 6:
-			HAL_GPIO_WritePin (GPIOA , ENM6_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOA , ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM7_Pin , SET );
-			displayRowLEDMatrix ( matrix_buffer [6]);
+			HAL_GPIO_WritePin (GPIOA, ENM6_Pin, RESET);
+			HAL_GPIO_WritePin (GPIOA, ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM7_Pin, SET );
+			displayRowLEDMatrix (matrix_buffer[(6 + shift) % 8]);
 			break;
 		case 7:
-			HAL_GPIO_WritePin (GPIOA , ENM7_Pin , RESET );
-			HAL_GPIO_WritePin (GPIOA , ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin , SET );
-			displayRowLEDMatrix ( matrix_buffer [7]);
+			HAL_GPIO_WritePin (GPIOA, ENM7_Pin, RESET);
+			HAL_GPIO_WritePin (GPIOA, ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin, SET );
+			displayRowLEDMatrix (matrix_buffer[(7 + shift) % 8]);
 			break;
 		default:
 			break;
@@ -246,8 +247,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   setTimer0(1000);
   setTimer1(100);
-  setTimer2(50);
-  setTimer3(100);
+  setTimer2(25);
+  setTimer3(10);
   while (1)
   {
 	  if (timer1_flag == 1){
@@ -257,7 +258,7 @@ int main(void)
 	  }
 
 	  if(timer2_flag == 1){
-		  setTimer2(50);
+		  setTimer2(25);
 		  update7SEG(index_led++);
 		  if(index_led >= MAX_LED) index_led = 0;
 	  }
@@ -280,9 +281,17 @@ int main(void)
 	  }
 
 	  if (timer3_flag == 1){
-		  setTimer3(100);
+		  setTimer3(10);
 		  updateLEDMatrix(index_led_matrix++);
-		  if(index_led_matrix >= MAX_LED_MATRIX) index_led_matrix = 0;
+
+		  if(index_led_matrix >= MAX_LED_MATRIX) {
+			  index_led_matrix = 0;
+			  shift++;
+		  }
+
+		  if (shift >= 8){
+			  shift = 0;
+		  }
 	  }
     /* USER CODE END WHILE */
 
