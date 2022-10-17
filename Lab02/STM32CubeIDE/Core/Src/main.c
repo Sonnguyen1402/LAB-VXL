@@ -138,11 +138,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer1(50);
+  setTimer1(100);
   while (1)
   {
 	  if (timer1_flag == 1){
-		  setTimer1(50);
+		  setTimer1(100);
 		  HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
 	  }
     /* USER CODE END WHILE */
@@ -273,7 +273,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 int timer_counter = 50, state = 1;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	timerRun(); // using for toggle LED RED
+	timerRun(); // using for blinking LED RED every second
 
 	if(timer_counter == 50 && state == 1){
 		display7SEG(1);
