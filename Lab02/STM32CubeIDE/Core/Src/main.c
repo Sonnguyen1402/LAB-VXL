@@ -183,8 +183,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer0(1000);
-  setTimer1(100);
-  setTimer2(50);
+  setTimer1(1000);
+  setTimer2(500);
   while (1)
   {
 	  if (timer1_flag == 1){
