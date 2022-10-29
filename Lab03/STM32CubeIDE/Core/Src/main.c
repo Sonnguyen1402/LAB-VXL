@@ -23,6 +23,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "input_processing.h"
+#include "timer.h"
+#include "global.h"
+#include "mode_processing.h"
+#include "led_processing.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,14 +93,28 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  setTimer2(100);
+  setTimerBlinking(1000);
   while (1)
   {
+	  if (getTimerBlinkingFlag() == 1){
+		  HAL_GPIO_TogglePin(GPIOA, LED_BLINKING_Pin);
+		  setTimerBlinking(1000);
+	  }
+
+	  if( getTimer2Flag() == 1){
+		  update7SEG(index7SEG, counter0, counter1);
+		  index7SEG++;
+		  if( index7SEG >= 2) index7SEG = 0;
+		  setTimer2(100);
+	  }
 	  fsm_for_input_processing();
+	  mode_processing();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -198,34 +216,34 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_BLINKING_Pin|LED7_0_0_Pin|LED7_0_1_Pin|LED7_0_2_Pin
-                          |LED7_0_3_Pin|LED7_0_4_Pin|LED7_0_5_Pin|LED7_0_6_Pin
-                          |LED7_1_0_Pin|LED7_1_1_Pin|LED7_1_2_Pin|LED7_1_3_Pin
-                          |LED7_1_4_Pin|LED7_1_5_Pin|LED7_1_6_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED7_0_0_Pin|LED7_0_1_Pin|LED7_0_2_Pin|LED7_0_3_Pin
+                          |LED7_0_4_Pin|LED7_0_5_Pin|LED7_0_6_Pin|LED7_1_0_Pin
+                          |LED7_1_1_Pin|LED7_1_2_Pin|LED7_1_3_Pin|LED7_1_4_Pin
+                          |LED7_1_5_Pin|LED7_1_6_Pin|LED_BLINKING_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LED_RED_0_Pin|LED_GREEN_0_Pin|LED_YELLOW_0_Pin|LED_RED_1_Pin
-                          |LED_GREEN_2_Pin|LED_YELLOW_1_Pin|EN0_Pin|EN1_Pin
+                          |LED_GREEN_1_Pin|LED_YELLOW_1_Pin|EN0_Pin|EN1_Pin
                           |EN2_Pin|EN3_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_BLINKING_Pin LED7_0_0_Pin LED7_0_1_Pin LED7_0_2_Pin
-                           LED7_0_3_Pin LED7_0_4_Pin LED7_0_5_Pin LED7_0_6_Pin
-                           LED7_1_0_Pin LED7_1_1_Pin LED7_1_2_Pin LED7_1_3_Pin
-                           LED7_1_4_Pin LED7_1_5_Pin LED7_1_6_Pin */
-  GPIO_InitStruct.Pin = LED_BLINKING_Pin|LED7_0_0_Pin|LED7_0_1_Pin|LED7_0_2_Pin
-                          |LED7_0_3_Pin|LED7_0_4_Pin|LED7_0_5_Pin|LED7_0_6_Pin
-                          |LED7_1_0_Pin|LED7_1_1_Pin|LED7_1_2_Pin|LED7_1_3_Pin
-                          |LED7_1_4_Pin|LED7_1_5_Pin|LED7_1_6_Pin;
+  /*Configure GPIO pins : LED7_0_0_Pin LED7_0_1_Pin LED7_0_2_Pin LED7_0_3_Pin
+                           LED7_0_4_Pin LED7_0_5_Pin LED7_0_6_Pin LED7_1_0_Pin
+                           LED7_1_1_Pin LED7_1_2_Pin LED7_1_3_Pin LED7_1_4_Pin
+                           LED7_1_5_Pin LED7_1_6_Pin LED_BLINKING_Pin */
+  GPIO_InitStruct.Pin = LED7_0_0_Pin|LED7_0_1_Pin|LED7_0_2_Pin|LED7_0_3_Pin
+                          |LED7_0_4_Pin|LED7_0_5_Pin|LED7_0_6_Pin|LED7_1_0_Pin
+                          |LED7_1_1_Pin|LED7_1_2_Pin|LED7_1_3_Pin|LED7_1_4_Pin
+                          |LED7_1_5_Pin|LED7_1_6_Pin|LED_BLINKING_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED_RED_0_Pin LED_GREEN_0_Pin LED_YELLOW_0_Pin LED_RED_1_Pin
-                           LED_GREEN_2_Pin LED_YELLOW_1_Pin EN0_Pin EN1_Pin
+                           LED_GREEN_1_Pin LED_YELLOW_1_Pin EN0_Pin EN1_Pin
                            EN2_Pin EN3_Pin */
   GPIO_InitStruct.Pin = LED_RED_0_Pin|LED_GREEN_0_Pin|LED_YELLOW_0_Pin|LED_RED_1_Pin
-                          |LED_GREEN_2_Pin|LED_YELLOW_1_Pin|EN0_Pin|EN1_Pin
+                          |LED_GREEN_1_Pin|LED_YELLOW_1_Pin|EN0_Pin|EN1_Pin
                           |EN2_Pin|EN3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -235,7 +253,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pins : BUTTON_0_Pin BUTTON_1_Pin BUTTON_2_Pin */
   GPIO_InitStruct.Pin = BUTTON_0_Pin|BUTTON_1_Pin|BUTTON_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
