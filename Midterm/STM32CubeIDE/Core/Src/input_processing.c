@@ -22,28 +22,32 @@ void fsm_for_input_processing ( void ){
 				switch (i){
 				case 0:
 					initState = 0;
-					if (mode >= 4) mode = 1;
-					else mode++;
+					counter = 0;
 					break;
 				case 1:
-					if (mode <= 1) break;
-					if (timeTemp >= 99) timeTemp = 1;
-					else timeTemp++;
+					buttonpressed = 1;
+					initState = 1;
+					if (counter >= 9) counter = 0;
+					else counter++;
 					break;
 				case 2:
-					if (mode >= 2){
-						timeDurations[mode - 2] = timeTemp;
-						//mode = 1;
-					}
+					buttonpressed = 1;
+					initState = 1;
+					if (counter <= 0) counter = 9;
+					else counter--;
 					break;
 				default:
 					break;
 				}
 			}
+			//buttonpressed = 0;
+			//pressed3sec = 0;
 			break ;
 		case BUTTON_PRESSED :
 			if (!is_button_pressed(i)){
 				buttonState[i] = BUTTON_RELEASED;
+				buttonpressed = 0;
+				pressed3sec = 0;
 			}
 			else {
 				if( is_button_pressed_1s (i)){
@@ -51,16 +55,23 @@ void fsm_for_input_processing ( void ){
 				}
 			}
 			break;
-			// This case in this exercise is not used
 		case BUTTON_PRESSED_MORE_THAN_1_SECOND:
-			if (!is_button_pressed (i)){
+			if (!is_button_pressed(i)){
 				buttonState [i] = BUTTON_RELEASED;
+				buttonpressed = 0;
+				pressed3sec = 0;
 			}
 			switch (i){
 			case 0:
-				//timeTemp = 69;
+				break;
+			case 1:
+				pressed3sec = 1;
+				break;
+			case 2:
+				pressed3sec = 2;
 				break;
 			default:
+				//pressed3sec = 0;
 				break;
 			}
 			break;

@@ -7,93 +7,39 @@
 
 #include "global.h"
 #include "mode_processing.h"
+#include "timer.h"
+#include "input_reading.h"
 
 void mode_processing(){
-	switch(mode){
-	case 1:
+	if (buttonpressed == 0){
 		if (initState == 0){
-			trafficLed0 = 0; // turn red
-			trafficLed1 = 1; // turn green
-			counter0 = timeDurations[trafficLed0]; // get red timeduration
-			counter1 = timeDurations[trafficLed1]; // get red timeduration
-			initState = 1;
-			updateTrafficLED(trafficLed0, trafficLed1);
 			setTimer1(1000);
 		}
 		else {
 			if (getTimer1Flag() == 1){
-				counter0--;
-				counter1--;
-				if (counter0 <= 0){
-					trafficLed0++;
-					if (trafficLed0 >= 3)
-						trafficLed0 = 0;
-					counter0 = timeDurations[trafficLed0];
-				}
-				if (counter1 <= 0){
-					trafficLed1++;
-					if (trafficLed1 >= 3)
-						trafficLed1 = 0;
-					counter1 = timeDurations[trafficLed1];
-				}
-				updateTrafficLED(trafficLed0, trafficLed1);
+				if (counter <= 0) initState = 0;
+				else counter--;
 				setTimer1(1000);
 			}
 		}
-		break;
-	case 2:
-		if (initState == 0){
-			trafficLed0 = 0;
-			trafficLed1 = 0;
-			timeTemp = timeDurations[trafficLed0];
-			initState = 1;
-			updateTrafficLED(trafficLed0, trafficLed1);
-			setTimer1(timeBlinking);
-		}
-		else {
-			if( getTimer1Flag() == 1){
-				toggleTrafficLed(trafficLed0, trafficLed1);
-				setTimer1 (timeBlinking);
+	}
+}
+
+void pressed3sec_processing(){
+	if (is_button_pressed_1s(1) == 0 && is_button_pressed_1s(2) == 0){
+		setTimer2(1000);
+	}
+	else {
+		if (getTimer2Flag() == 1){
+			if (pressed3sec == 1){
+				if (counter >= 9) counter = 0;
+				else counter++;
 			}
-		}
-		counter0 = timeTemp;
-		counter1 = mode;
-		break;
-	case 3:
-		if (initState == 0){
-			trafficLed0 = 1;
-			trafficLed1 = 1;
-			timeTemp = timeDurations[trafficLed0];
-			initState = 1;
-			updateTrafficLED(trafficLed0, trafficLed1);
-			setTimer1(timeBlinking);
-		}
-		else {
-			if( getTimer1Flag() == 1){
-				toggleTrafficLed(trafficLed0, trafficLed1);
-				setTimer1 (timeBlinking);
+			else if (pressed3sec == 2){
+				if (counter <= 0) counter = 9;
+				else counter--;
 			}
+			setTimer2(1000);
 		}
-		counter0 = timeTemp;
-		counter1 = mode;
-		break;
-	case 4:
-		if (initState == 0){
-			trafficLed0 = 2;
-			trafficLed1 = 2;
-			timeTemp = timeDurations[trafficLed0];
-			initState = 1;
-			updateTrafficLED(trafficLed0, trafficLed1);
-			setTimer1(timeBlinking);
-		}
-		else {
-			if( getTimer1Flag() == 1){
-				toggleTrafficLed(trafficLed0, trafficLed1);
-				setTimer1 (timeBlinking);
-			}
-		}
-		counter0 = timeTemp;
-		counter1 = mode;
-		break;
 	}
 }

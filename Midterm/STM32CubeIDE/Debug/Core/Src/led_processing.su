@@ -1,5 +1,1 @@
-led_processing.c:11:6:display7SEG_0	16	static
 led_processing.c:57:6:display7SEG_1	16	static
-led_processing.c:103:6:updateTrafficLED	16	static
-led_processing.c:144:6:toggleTrafficLed	16	static
-led_processing.c:185:6:update7SEG	24	static

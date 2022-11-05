@@ -8,7 +8,7 @@
 #include "main.h"
 #include "led_processing.h"
 
-void display7SEG_0 ( int num ){
+/*void display7SEG_0 ( int num ){
 	switch ( num ){
 		case 0:
 			HAL_GPIO_WritePin (GPIOA, LED7_0_0_Pin | LED7_0_1_Pin | LED7_0_2_Pin | LED7_0_3_Pin | LED7_0_4_Pin | LED7_0_5_Pin, RESET );
@@ -52,7 +52,7 @@ void display7SEG_0 ( int num ){
 		default:
 			break;
 	}
-}
+}*/
 
 void display7SEG_1 ( int num ){
 	switch ( num ){
@@ -100,7 +100,7 @@ void display7SEG_1 ( int num ){
 	}
 }
 
-void updateTrafficLED(int trafficLed0, int trafficLed1){
+/*void updateTrafficLED(int trafficLed0, int trafficLed1){
 	switch (trafficLed0){
 	case 0:
 		HAL_GPIO_WritePin(GPIOB, LED_RED_0_Pin, RESET);
@@ -203,4 +203,4 @@ void update7SEG(int index, int counter_0, int counter_1){
 		default:
 			break;
 	}
-}
+}*/

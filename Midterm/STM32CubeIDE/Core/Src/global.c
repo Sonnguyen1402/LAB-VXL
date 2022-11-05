@@ -7,7 +7,11 @@
 
 #include "main.h"
 
-int mode = 0;
+int counter = 0;
+int initState = 0;
+int pressed3sec = 0;
+int buttonpressed = 0;
+/*int mode = 0;
 
 int timeDurations[3] = {5, 3, 2}; // red, green, yellow time
 
@@ -23,4 +27,4 @@ int index7SEG = 0;
 
 int timeBlinking = 500;
 
-int timeTemp = 0;
+int timeTemp = 0;*/

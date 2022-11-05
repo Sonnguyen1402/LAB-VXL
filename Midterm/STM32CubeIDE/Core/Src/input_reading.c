@@ -9,7 +9,7 @@
 #include "input_reading.h"
 // timer interrupt duration is 10ms , so to pass 1 second ,
 // we need to jump to the interrupt service routine 100 time
-#define DURATION_FOR_AUTO_INCREASING 100
+#define DURATION_FOR_AUTO_INCREASING 300
 #define BUTTON_IS_PRESSED 	GPIO_PIN_RESET
 #define BUTTON_IS_RELEASED 	GPIO_PIN_SET
 // the buffer that the final result is stored after
