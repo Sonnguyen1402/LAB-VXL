@@ -66,7 +66,7 @@ unsigned char is_button_pressed ( uint8_t index ){
 	return (buttonBuffer [index] == BUTTON_IS_PRESSED);
 }
 
-unsigned char is_button_pressed_1s ( unsigned char index ){
+unsigned char is_button_pressed_3s ( unsigned char index ){
 	if( index >= NO_OF_BUTTONS ) return 0xff;
 	return ( flagForButtonPress1s [index] == 1);
 }

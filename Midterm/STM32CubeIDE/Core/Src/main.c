@@ -25,7 +25,6 @@
 #include "input_processing.h"
 #include "timer.h"
 #include "global.h"
-#include "mode_processing.h"
 #include "led_processing.h"
 /* USER CODE END Includes */
 
@@ -105,13 +104,13 @@ int main(void)
 		  HAL_GPIO_TogglePin(GPIOA, LED_BLINKING_Pin);
 		  setTimerBlinking(1000);
 	  }
-	  display7SEG_1(counter);
+	  display7SEG_1(counter); // display counter in LED 7SEG
 
-	  fsm_simple_buttons_run ();
+	  fsm_simple_buttons_run (); // normal-press
 
-	  pressed3sec_processing();
+	  fsm_3s_long_pressed(); // 3s long-press
 
-	  auto_processing();
+	  auto_processing(); // auto countdown
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

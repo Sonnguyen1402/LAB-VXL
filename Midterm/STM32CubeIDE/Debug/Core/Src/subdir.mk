@@ -10,7 +10,6 @@ C_SRCS += \
 ../Core/Src/input_reading.c \
 ../Core/Src/led_processing.c \
 ../Core/Src/main.c \
-../Core/Src/mode_processing.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
 ../Core/Src/stm32f1xx_it.c \
 ../Core/Src/syscalls.c \
@@ -24,7 +23,6 @@ OBJS += \
 ./Core/Src/input_reading.o \
 ./Core/Src/led_processing.o \
 ./Core/Src/main.o \
-./Core/Src/mode_processing.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
 ./Core/Src/stm32f1xx_it.o \
 ./Core/Src/syscalls.o \
@@ -38,7 +36,6 @@ C_DEPS += \
 ./Core/Src/input_reading.d \
 ./Core/Src/led_processing.d \
 ./Core/Src/main.d \
-./Core/Src/mode_processing.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
 ./Core/Src/stm32f1xx_it.d \
 ./Core/Src/syscalls.d \
