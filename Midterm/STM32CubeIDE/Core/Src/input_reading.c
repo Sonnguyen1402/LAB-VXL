@@ -7,8 +7,8 @@
 
 
 #include "input_reading.h"
-// timer interrupt duration is 10ms , so to pass 1 second ,
-// we need to jump to the interrupt service routine 100 time
+// timer interrupt duration is 10ms , so to pass 3 second ,
+// we need to jump to the interrupt service routine 300 time
 #define DURATION_FOR_AUTO_INCREASING 300
 #define BUTTON_IS_PRESSED 	GPIO_PIN_RESET
 #define BUTTON_IS_RELEASED 	GPIO_PIN_SET
@@ -29,7 +29,7 @@ void button_reading ( void ){
 	for ( unsigned int i = 0; i < NO_OF_BUTTONS ; i++){
 		// Begin debouncing
 		debounceButtonBuffer2 [i] = debounceButtonBuffer1 [i];
-		// According to i, I will read from appropriated pin .
+		// According to i, I will read from appropriated pin.
 		switch (i){
 		case 0:
 			debounceButtonBuffer1 [i] = HAL_GPIO_ReadPin ( BUTTON_0_GPIO_Port , BUTTON_0_Pin );
@@ -45,7 +45,6 @@ void button_reading ( void ){
 		}
 		if( debounceButtonBuffer1 [i] == debounceButtonBuffer2 [i]){
 			buttonBuffer [i] = debounceButtonBuffer1 [i];
-			// This section using for pressed more than 1s, but in this exercise it is ignored
 			if( buttonBuffer [i] == BUTTON_IS_PRESSED ){
 				if( counterForButtonPress1s [i] < DURATION_FOR_AUTO_INCREASING ){
 					counterForButtonPress1s [i]++;

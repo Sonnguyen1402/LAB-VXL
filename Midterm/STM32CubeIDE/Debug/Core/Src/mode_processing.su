@@ -1,2 +1,2 @@
-mode_processing.c:13:6:mode_processing	8	static
-mode_processing.c:28:6:pressed3sec_processing	8	static
+mode_processing.c:13:6:auto_processing	8	static
+mode_processing.c:20:6:pressed3sec_processing	8	static

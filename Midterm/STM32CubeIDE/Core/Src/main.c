@@ -98,7 +98,6 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  //setTimer2(100);
   setTimerBlinking(1000);
   while (1)
   {
@@ -106,17 +105,13 @@ int main(void)
 		  HAL_GPIO_TogglePin(GPIOA, LED_BLINKING_Pin);
 		  setTimerBlinking(1000);
 	  }
-
-	  /*if( getTimer2Flag() == 1){
-		  update7SEG(index7SEG, counter0, counter1);
-		  index7SEG++;
-		  if( index7SEG >= 2) index7SEG = 0;
-		  setTimer2(100);
-	  }*/
 	  display7SEG_1(counter);
-	  fsm_for_input_processing();
-	  mode_processing();
+
+	  fsm_simple_buttons_run ();
+
 	  pressed3sec_processing();
+
+	  auto_processing();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

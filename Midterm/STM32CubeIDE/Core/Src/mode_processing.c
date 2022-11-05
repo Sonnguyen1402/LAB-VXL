@@ -10,18 +10,10 @@
 #include "timer.h"
 #include "input_reading.h"
 
-void mode_processing(){
-	if (buttonpressed == 0){
-		if (initState == 0){
-			setTimer1(1000);
-		}
-		else {
-			if (getTimer1Flag() == 1){
-				if (counter <= 0) initState = 0;
-				else counter--;
-				setTimer1(1000);
-			}
-		}
+void auto_processing(){
+	if (getTimer1Flag() == 1){
+		if (counter >= 0) counter--;
+		setTimer1(1000);
 	}
 }
 
@@ -31,11 +23,11 @@ void pressed3sec_processing(){
 	}
 	else {
 		if (getTimer2Flag() == 1){
-			if (pressed3sec == 1){
+			if (is_button_pressed_1s(1) == 1){
 				if (counter >= 9) counter = 0;
 				else counter++;
 			}
-			else if (pressed3sec == 2){
+			else if (is_button_pressed_1s(2) == 1){
 				if (counter <= 0) counter = 9;
 				else counter--;
 			}
