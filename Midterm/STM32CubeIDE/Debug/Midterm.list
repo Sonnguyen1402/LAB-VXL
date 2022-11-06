@@ -369,10 +369,10 @@ void fsm_3s_long_pressed(){
  800031c:	2000002c 	.word	0x2000002c
 
 08000320 <button_reading>:
-static uint8_t flagForButtonPress1s [ NO_OF_BUTTONS ];
+static uint8_t flagForButtonPress3s [ NO_OF_BUTTONS ];
 // we define counter for automatically increasing the value
 // after the button is pressed more than 1 second .
-static uint16_t counterForButtonPress1s [ NO_OF_BUTTONS ];
+static uint16_t counterForButtonPress3s [ NO_OF_BUTTONS ];
 
 void button_reading ( void ){
  8000320:	b580      	push	{r7, lr}
@@ -485,13 +485,13 @@ void button_reading ( void ){
  80003d4:	781b      	ldrb	r3, [r3, #0]
  80003d6:	2b00      	cmp	r3, #0
  80003d8:	d117      	bne.n	800040a <button_reading+0xea>
-				if( counterForButtonPress1s [i] < DURATION_FOR_AUTO_INCREASING ){
+				if( counterForButtonPress3s [i] < DURATION_FOR_AUTO_INCREASING ){
  80003da:	4a1a      	ldr	r2, [pc, #104]	; (8000444 <button_reading+0x124>)
  80003dc:	687b      	ldr	r3, [r7, #4]
  80003de:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  80003e2:	f5b3 7f96 	cmp.w	r3, #300	; 0x12c
  80003e6:	d20a      	bcs.n	80003fe <button_reading+0xde>
-					counterForButtonPress1s [i]++;
+					counterForButtonPress3s [i]++;
  80003e8:	4a16      	ldr	r2, [pc, #88]	; (8000444 <button_reading+0x124>)
  80003ea:	687b      	ldr	r3, [r7, #4]
  80003ec:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
@@ -503,7 +503,7 @@ void button_reading ( void ){
  80003fc:	e00f      	b.n	800041e <button_reading+0xfe>
 				}
 				else {
-					flagForButtonPress1s [i] = 1;
+					flagForButtonPress3s [i] = 1;
  80003fe:	4a12      	ldr	r2, [pc, #72]	; (8000448 <button_reading+0x128>)
  8000400:	687b      	ldr	r3, [r7, #4]
  8000402:	4413      	add	r3, r2
@@ -513,12 +513,12 @@ void button_reading ( void ){
 				}
 			}
 			else {
-				counterForButtonPress1s [i] = 0;
+				counterForButtonPress3s [i] = 0;
  800040a:	4a0e      	ldr	r2, [pc, #56]	; (8000444 <button_reading+0x124>)
  800040c:	687b      	ldr	r3, [r7, #4]
  800040e:	2100      	movs	r1, #0
  8000410:	f822 1013 	strh.w	r1, [r2, r3, lsl #1]
-				flagForButtonPress1s [i] = 0;
+				flagForButtonPress3s [i] = 0;
  8000414:	4a0c      	ldr	r2, [pc, #48]	; (8000448 <button_reading+0x128>)
  8000416:	687b      	ldr	r3, [r7, #4]
  8000418:	4413      	add	r3, r2
@@ -593,7 +593,7 @@ unsigned char is_button_pressed_3s ( unsigned char index ){
  800048e:	d901      	bls.n	8000494 <is_button_pressed_3s+0x14>
  8000490:	23ff      	movs	r3, #255	; 0xff
  8000492:	e007      	b.n	80004a4 <is_button_pressed_3s+0x24>
-	return ( flagForButtonPress1s [index] == 1);
+	return ( flagForButtonPress3s [index] == 1);
  8000494:	79fb      	ldrb	r3, [r7, #7]
  8000496:	4a06      	ldr	r2, [pc, #24]	; (80004b0 <is_button_pressed_3s+0x30>)
  8000498:	5cd3      	ldrb	r3, [r2, r3]
@@ -821,6 +821,7 @@ int main(void)
  800061a:	f000 f989 	bl	8000930 <setTimerBlinking>
   while (1)
   {
+	  // LED Blinking
 	  if (getTimerBlinkingFlag() == 1){
  800061e:	f000 f9d5 	bl	80009cc <getTimerBlinkingFlag>
  8000622:	4603      	mov	r3, r0
@@ -834,13 +835,13 @@ int main(void)
  8000630:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000634:	f000 f97c 	bl	8000930 <setTimerBlinking>
 	  }
-	  display7SEG_1(counter); // display counter in LED 7SEG
+	  display7SEG_1(counter); // display counter to LED 7SEG
  8000638:	4b07      	ldr	r3, [pc, #28]	; (8000658 <main+0x5c>)
  800063a:	681b      	ldr	r3, [r3, #0]
  800063c:	4618      	mov	r0, r3
  800063e:	f7ff ff39 	bl	80004b4 <display7SEG_1>
 
-	  fsm_simple_buttons_run (); // normal-press
+	  fsm_simple_buttons_run(); // normal-press
  8000642:	f7ff fd83 	bl	800014c <fsm_simple_buttons_run>
 
 	  fsm_3s_long_pressed(); // 3s long-press

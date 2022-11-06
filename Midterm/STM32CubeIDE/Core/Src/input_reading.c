@@ -19,10 +19,10 @@ static GPIO_PinState buttonBuffer [ NO_OF_BUTTONS ];
 static GPIO_PinState debounceButtonBuffer1 [ NO_OF_BUTTONS ];
 static GPIO_PinState debounceButtonBuffer2 [ NO_OF_BUTTONS ];
 // we define a flag for a button pressed more than 1 second .
-static uint8_t flagForButtonPress1s [ NO_OF_BUTTONS ];
+static uint8_t flagForButtonPress3s [ NO_OF_BUTTONS ];
 // we define counter for automatically increasing the value
 // after the button is pressed more than 1 second .
-static uint16_t counterForButtonPress1s [ NO_OF_BUTTONS ];
+static uint16_t counterForButtonPress3s [ NO_OF_BUTTONS ];
 
 void button_reading ( void ){
 	// Repeat for 3 buttons
@@ -46,16 +46,16 @@ void button_reading ( void ){
 		if( debounceButtonBuffer1 [i] == debounceButtonBuffer2 [i]){
 			buttonBuffer [i] = debounceButtonBuffer1 [i];
 			if( buttonBuffer [i] == BUTTON_IS_PRESSED ){
-				if( counterForButtonPress1s [i] < DURATION_FOR_AUTO_INCREASING ){
-					counterForButtonPress1s [i]++;
+				if( counterForButtonPress3s [i] < DURATION_FOR_AUTO_INCREASING ){
+					counterForButtonPress3s [i]++;
 				}
 				else {
-					flagForButtonPress1s [i] = 1;
+					flagForButtonPress3s [i] = 1;
 				}
 			}
 			else {
-				counterForButtonPress1s [i] = 0;
-				flagForButtonPress1s [i] = 0;
+				counterForButtonPress3s [i] = 0;
+				flagForButtonPress3s [i] = 0;
 			}
 		}
 	}
@@ -68,5 +68,5 @@ unsigned char is_button_pressed ( uint8_t index ){
 
 unsigned char is_button_pressed_3s ( unsigned char index ){
 	if( index >= NO_OF_BUTTONS ) return 0xff;
-	return ( flagForButtonPress1s [index] == 1);
+	return ( flagForButtonPress3s [index] == 1);
 }

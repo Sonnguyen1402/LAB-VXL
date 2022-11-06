@@ -100,13 +100,14 @@ int main(void)
   setTimerBlinking(1000);
   while (1)
   {
+	  // LED Blinking
 	  if (getTimerBlinkingFlag() == 1){
 		  HAL_GPIO_TogglePin(GPIOA, LED_BLINKING_Pin);
 		  setTimerBlinking(1000);
 	  }
-	  display7SEG_1(counter); // display counter in LED 7SEG
+	  display7SEG_1(counter); // display counter to LED 7SEG
 
-	  fsm_simple_buttons_run (); // normal-press
+	  fsm_simple_buttons_run(); // normal-press
 
 	  fsm_3s_long_pressed(); // 3s long-press
 

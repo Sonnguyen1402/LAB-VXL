@@ -2880,10 +2880,10 @@ LOAD e:/programs_installer/stm32cubeide_1.7.0/stm32cubeide/plugins/com.st.stm32c
  .bss.debounceButtonBuffer2
                 0x000000002000003c        0x3 ./Core/Src/input_reading.o
  *fill*         0x000000002000003f        0x1 
- .bss.flagForButtonPress1s
+ .bss.flagForButtonPress3s
                 0x0000000020000040        0x3 ./Core/Src/input_reading.o
  *fill*         0x0000000020000043        0x1 
- .bss.counterForButtonPress1s
+ .bss.counterForButtonPress3s
                 0x0000000020000044        0x6 ./Core/Src/input_reading.o
  *fill*         0x000000002000004a        0x2 
  .bss.timerBlinking_counter
