@@ -23,4 +23,4 @@ int index7SEG = 0;
 
 int timeBlinking = 500;
 
-int timeTemp = 0;
+int duration = 0;

@@ -106,7 +106,7 @@ int main(void)
 		  HAL_GPIO_TogglePin(GPIOA, LED_BLINKING_Pin);
 		  setTimerBlinking(1000);
 	  }
-
+	  // Two couple LED 7SEG is display with frequency is 5Hz.
 	  if( getTimer2Flag() == 1){
 		  update7SEG(index7SEG, counter0, counter1);
 		  index7SEG++;

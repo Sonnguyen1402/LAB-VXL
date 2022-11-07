@@ -26,31 +26,31 @@ static uint16_t counterForButtonPress1s [ NO_OF_BUTTONS ];
 
 void button_reading ( void ){
 	// Repeat for 3 buttons
-	for ( unsigned int i = 0; i < NO_OF_BUTTONS ; i++){
-		// Begin debouncing
+	for (unsigned int i = 0; i < NO_OF_BUTTONS ; i++){
 		debounceButtonBuffer2 [i] = debounceButtonBuffer1 [i];
-		// According to i, I will read from appropriated pin .
 		switch (i){
 		case 0:
-			debounceButtonBuffer1 [i] = HAL_GPIO_ReadPin ( BUTTON_0_GPIO_Port , BUTTON_0_Pin );
+			debounceButtonBuffer1 [i] = HAL_GPIO_ReadPin (BUTTON_0_GPIO_Port , BUTTON_0_Pin);
 			break ;
 		case 1:
-			debounceButtonBuffer1 [i] = HAL_GPIO_ReadPin (BUTTON_1_GPIO_Port , BUTTON_1_Pin );
+			debounceButtonBuffer1 [i] = HAL_GPIO_ReadPin (BUTTON_1_GPIO_Port , BUTTON_1_Pin);
 			break ;
 		case 2:
-			debounceButtonBuffer1 [i] = HAL_GPIO_ReadPin (BUTTON_2_GPIO_Port , BUTTON_2_Pin );
+			debounceButtonBuffer1 [i] = HAL_GPIO_ReadPin (BUTTON_2_GPIO_Port , BUTTON_2_Pin);
 			break ;
 		default :
 			break ;
 		}
 		if( debounceButtonBuffer1 [i] == debounceButtonBuffer2 [i]){
 			buttonBuffer [i] = debounceButtonBuffer1 [i];
-			// This section using for pressed more than 1s, but in this exercise it is ignored
+			// if a button is pressed , we start counting
 			if( buttonBuffer [i] == BUTTON_IS_PRESSED ){
 				if( counterForButtonPress1s [i] < DURATION_FOR_AUTO_INCREASING ){
 					counterForButtonPress1s [i]++;
 				}
 				else {
+					// the flag is turned on when 1 second has passed
+					// since the button is pressed.
 					flagForButtonPress1s [i] = 1;
 				}
 			}

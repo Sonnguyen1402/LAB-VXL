@@ -22,5 +22,5 @@ extern int index7SEG;
 
 extern int timeBlinking;
 
-extern int timeTemp;
+extern int duration;
 #endif /* INC_GLOBAL_H_ */

@@ -20,21 +20,20 @@ void fsm_for_input_processing ( void ){
 			if( is_button_pressed(i)){
 				buttonState [i] = BUTTON_PRESSED;
 				switch (i){
-				case 0:
+				case 0: // Button 1: increase Mode
 					initState = 0;
 					if (mode >= 4) mode = 1;
 					else mode++;
 					break;
-				case 1:
+				case 1: // Button 2: increase duration
 					if (mode <= 1) break;
-					if (timeTemp >= 99) timeTemp = 1;
-					else timeTemp++;
+					if (duration >= 99) duration = 1;
+					else duration++;
 					break;
-				case 2:
-					if (mode >= 2){
-						timeDurations[mode - 2] = timeTemp;
-						//mode = 1;
-					}
+				case 2: // Button 3: set duration
+					if (mode == 2) timeDurations[0] = duration;
+					else if (mode == 3) timeDurations[2] = duration;
+					else if (mode == 4) timeDurations[1] = duration;
 					break;
 				default:
 					break;
@@ -51,7 +50,6 @@ void fsm_for_input_processing ( void ){
 				}
 			}
 			break;
-			// This case in this exercise is not used
 		case BUTTON_PRESSED_MORE_THAN_1_SECOND:
 			if (!is_button_pressed (i)){
 				buttonState [i] = BUTTON_RELEASED;
