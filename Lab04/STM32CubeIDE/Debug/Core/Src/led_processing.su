@@ -1,5 +1,10 @@
-led_processing.c:11:6:display7SEG_0	16	static
-led_processing.c:57:6:display7SEG_1	16	static
-led_processing.c:103:6:updateTrafficLED	16	static
-led_processing.c:144:6:toggleTrafficLed	16	static
-led_processing.c:185:6:update7SEG	24	static
+led_processing.c:13:6:display7SEG_0	16	static
+led_processing.c:59:6:increase7SegLED	8	static
+led_processing.c:70:6:toggleLED1	8	static
+led_processing.c:74:6:toggleLED2	8	static
+led_processing.c:78:6:toggleLED3	8	static
+led_processing.c:82:6:toggleLED4	8	static
+led_processing.c:86:6:toggleLED5	8	static
+led_processing.c:90:6:toggleLEDRed	8	static
+led_processing.c:94:6:toggleLEDGreen	8	static
+led_processing.c:98:6:toggleLEDYellow	8	static
