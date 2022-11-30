@@ -24,3 +24,5 @@ int index7SEG = 0;
 int timeBlinking = 500;
 
 int duration = 0;
+
+int pedestrian = 0;
