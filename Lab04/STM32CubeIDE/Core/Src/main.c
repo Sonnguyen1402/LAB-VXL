@@ -102,14 +102,15 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
-  System_Initialization();
+  LEDs_Init();
   SCH_Init();
 
-  SCH_Add_Task (increase7SegLED, 100, 50);
-  //SCH_Add_Task (toggleLED2, 100, 100);
-  //SCH_Add_Task (toggleLED3, 100, 150);
-  //SCH_Add_Task (toggleLED4, 100, 200);
-  //SCH_Add_Task (toggleLED5, 100, 250);
+  SCH_Add_Task (increase7SegLED, 300, 0);
+  SCH_Add_Task (toggleLED1, 0, 50);
+  SCH_Add_Task (toggleLED2, 5, 100);
+  SCH_Add_Task (toggleLED3, 10, 150);
+  SCH_Add_Task (toggleLED4, 15, 200);
+  SCH_Add_Task (toggleLED5, 20, 250);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -276,14 +277,12 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int counter = 50;
+int counter = 100;
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 {
-	if ( counter == 50 ) {
-		HAL_GPIO_TogglePin (GPIOA , LED_BLINKING_Pin);
-	}
+	if ( counter == 100 ) HAL_GPIO_TogglePin (GPIOA , LED_BLINKING_Pin);
 	counter--;
-	if( counter <= 0 ) counter = 50;
+	if( counter <= 0 ) counter = 100;
 
 	SCH_Update();
 }
