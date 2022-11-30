@@ -5,123 +5,164 @@
  *      Author: ngtha
  */
 #include "stddef.h"
+#include "main.h"
 #include "scheduler.h"
 
-#define TIMER_CYCLE 10
-sTask SCH_task_array[MAX_NUMBER_OF_TASK];
+typedef struct {
+	void ( *pTask) ( void ) ;
+	uint32_t Delay;
+	uint32_t Period;
+	uint8_t RunMe;
+	uint32_t TaskID;
+} sTask ;
 
-uint8_t current_index_task;
+// MUST BE ADJUSTED FOR EACH NEW PROJECT
+#define SCH_MAX_TASKS 	5
+#define NO_TASK_ID 		0
 
-static int minDelayCounter = -1;
-static int minDelay = -1;
+#define ERROR_SCH_CANNOT_DELETE_TASK	1
 
-void SCH_Init(){
-	for (int i = 0; i <MAX_NUMBER_OF_TASK; i++) {
-		SCH_task_array[i].pTask = NULL;
-		SCH_task_array[i].Delay = 0;
-		SCH_task_array[i].Period = 0;
-		SCH_task_array[i].TaskID = 0;
+static sTask SCH_tasks_G[SCH_MAX_TASKS];
+static unsigned char Error_code_G = 0;
+
+uint8_t tBuffer[50]={"Task has PID =     at tick              \r\n"};
+#define PID_index 			14
+#define PID_length 			3
+#define tick_index 			26
+#define tick_length 		12
+
+
+void updateBuffer(int tid, int tick) {
+	for (int i=0;  i< PID_length;i++) {
+		tBuffer[PID_length + PID_index - i] = tid%10+48;
+		tid/=10;
+	}
+
+	for (int i = 0; i < tick_length; i++) {
+		tBuffer[tick_length + tick_index - i] = tick%10+48;
+		tick/=10;
 	}
 }
 
-void SCH_Update () {
-	minDelayCounter--;
-}
-
-uint32_t SCH_Add_Task ( void (*pFunction)() , uint32_t DELAY, uint32_t PERIOD){
-	int i = 0 ;
-	// Find empty element
-	while ((SCH_task_array [i].pTask != 0 ) && (i < MAX_NUMBER_OF_TASK)) {
-		i ++;
-	}
-	// Array is full , so I just end function
-	if( i >= MAX_NUMBER_OF_TASK) {
-		return MAX_NUMBER_OF_TASK;
-	}
-	// Add task
-	SCH_task_array [i].pTask = pFunction;
-	SCH_task_array [i].Delay = DELAY / TIMER_CYCLE;
-	SCH_task_array [i].Period = PERIOD / TIMER_CYCLE;
-	SCH_task_array [i].TaskID = i;
-	// minDelay is not initiated
-	if ( minDelay < 0 ) {
-		minDelayCounter = SCH_task_array [i].Delay;
-		minDelay = SCH_task_array [i].Delay;
-	}
-	// minDelay is initiated and new task’s delay is smaller than minDelayCounter
-	else if (minDelay >= 0 && SCH_task_array[i].Delay < minDelayCounter) {
-	// delayed is time the old tasks has waited
-	int delayed = minDelay - minDelayCounter;
-	// This i f use f o r passing case delayed == 0
-	if (delayed > 0) {
-		// Update delay of task
-		for ( int i = 0 ; i < MAX_NUMBER_OF_TASK; i ++) {
-			if ( SCH_task_array[i].pTask != 0 ) {
-				SCH_task_array [i].Delay -= delayed;
-			}
-		}
-	}
-	// Update minDelay , minDelayCounter
-	minDelay = SCH_task_array[i].Delay;
-	minDelayCounter = SCH_task_array[i].Delay;
-	}
-	return i;
-}
-
-uint32_t SCH_Delete_Task ( uint32_t taskID ) {
-	uint32_t returnCode = 1 ;
-	if (SCH_task_array [taskID].pTask == 0) {
-		returnCode = 99999; // Not finished
-	}
-	else {
-		returnCode = 0 ; // Not finished
-	}
-	SCH_task_array [ taskID ].pTask = 0 ;
-	SCH_task_array [ taskID ].Delay = 0 ;
-	SCH_task_array [ taskID ].Period = 0 ;
-
-	return returnCode;
-}
-
-
-void SCH_Dispatch_Tasks(void){
-	if ( minDelayCounter == 0 ) {
-		// Save minDelay
-		int tempDelay = minDelay;
-		// Reset minDelay
-		minDelay = -1;
-
-		for ( int i = 0 ; i < MAX_NUMBER_OF_TASK; i++) {
-			if ( SCH_task_array [i].pTask != 0 ) {
-				// Update delay of task
-				SCH_task_array [i].Delay = SCH_task_array [i].Delay - tempDelay ;
-				// Execute task
-				if ( SCH_task_array [i].Delay == 0 ) {
-						(*SCH_task_array [i].pTask) ();
-					// Task i s execute one time
-					if (SCH_task_array [i].Period == 0 ) {
-						SCH_Delete_Task (i);
-						continue;
-					}
-					// Task has period
-					else {
-						SCH_task_array [i].Delay = SCH_task_array[i].Period;
-					}
+// --------------- Scheduler ------------------ //
+void SCH_Update( void ) {
+	// NOTE: calculations are in *TICKS* ( not milliseconds )
+	for (unsigned char Index = 0; Index < SCH_MAX_TASKS; Index++) {
+		// Check if there is a task at this location
+		if (SCH_tasks_G [Index].pTask) {
+			if ( SCH_tasks_G[Index].Delay == 0) {
+				// The task is due to run
+				// Inc . the ’RunMe ’ flag
+				SCH_tasks_G[Index].RunMe++;
+				if  ( SCH_tasks_G [Index].Period ) {
+					// Schedule periodic tasks to run again
+					SCH_tasks_G[Index].Delay = SCH_tasks_G[Index].Period ;
 				}
-				// Update minDelayTask
-				// minDelay is not initiated
-				if ( minDelay < 0 ) {
-					minDelayCounter = SCH_task_array [i].Delay;
-					minDelay = SCH_task_array [i].Delay;
-				}
-				// minDelay is initiated
-				else {
-					if ( SCH_task_array [i].Delay < minDelay ) {
-						minDelayCounter = SCH_task_array [i].Delay;
-						minDelay = SCH_task_array [i].Delay;
-					}
-				}
+			} else {
+				// Not yet ready to run : just decrement the delay
+				SCH_tasks_G[Index].Delay--;
+
 			}
 		}
 	}
 }
+
+uint32_t SCH_Add_Task (void (*pFunction)() , uint32_t DELAY, uint32_t PERIOD)
+{
+	unsigned char Index = 0;
+	while (( SCH_tasks_G[Index].pTask != 0) && ( Index < SCH_MAX_TASKS))
+	{
+		Index++;
+	}
+	if (Index == SCH_MAX_TASKS)
+	{
+		return SCH_MAX_TASKS;
+	}
+
+	SCH_tasks_G[Index].pTask 	= pFunction ;
+	SCH_tasks_G[Index].Delay 	= DELAY;
+	SCH_tasks_G[Index].Period 	= PERIOD;
+	SCH_tasks_G[Index].RunMe 	= 0 ;
+
+	return SCH_tasks_G[Index].TaskID;
+}
+
+void SCH_Dispatch_Tasks(UART_HandleTypeDef *huart1 )
+{
+	unsigned char Index ;
+
+	for ( Index = 0; Index < SCH_MAX_TASKS; Index++) {
+		if (SCH_tasks_G[Index].RunMe > 0) {
+			(*SCH_tasks_G[Index].pTask)() ; // Run the task
+			SCH_tasks_G[Index].RunMe--; // Reset / reduce RunMe flag
+
+			updateBuffer(SCH_tasks_G[Index].TaskID, HAL_GetTick());
+			HAL_UART_Transmit(huart1, tBuffer, 50, 100);
+
+
+			if ( SCH_tasks_G[Index].Period == 0)
+			{
+				SCH_Delete_Task(Index);
+			}
+		}
+	}
+}
+
+/*−−−−−−−−−−−−−−−−−−Delete−−−−−−−−−−−−−−−−−−−−−*/
+#define RETURN_NORMAL 	0
+#define RETURN_ERROR  	1
+
+uint32_t SCH_Delete_Task (uint32_t TaskID) {
+	unsigned char TASK_INDEX = -1;
+
+	for (unsigned char Index = 0; Index < SCH_MAX_TASKS; Index++){
+		if (SCH_tasks_G[Index].TaskID == TaskID) {
+			TASK_INDEX = Index;
+			break;
+		}
+	}
+
+	if (TASK_INDEX == -1) {
+		return RETURN_ERROR;
+	}
+
+	unsigned char Return_code;
+
+	if (SCH_tasks_G[TASK_INDEX].pTask == 0) {
+		Error_code_G = ERROR_SCH_CANNOT_DELETE_TASK;
+		Return_code = RETURN_ERROR;
+	} else {
+		Return_code = RETURN_NORMAL;
+	}
+
+	SCH_tasks_G[TASK_INDEX].pTask 	= 0x0000 ;
+	SCH_tasks_G[TASK_INDEX].Delay 	= 0;
+	SCH_tasks_G[TASK_INDEX].Period 	= 0;
+	SCH_tasks_G[TASK_INDEX].RunMe 	= 0;
+
+	return Return_code;
+}
+
+// ---------------- Init-------------------//
+void SCH_Init ( void ) {
+	for (unsigned char Index = 0; Index < SCH_MAX_TASKS; Index++){
+		SCH_tasks_G[Index].TaskID = Index;
+	}
+
+	unsigned char i ;
+	for (i = 0 ; i < SCH_MAX_TASKS; i ++) {
+		SCH_Delete_Task(i);
+	}
+
+	Error_code_G = 0;
+}
+
+void System_Initialization(void) {
+	// Init LED
+	HAL_GPIO_WritePin(LED_0_GPIO_Port, LED_0_Pin, SET);
+	HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, SET);
+	HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, SET);
+	HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, SET);
+	HAL_GPIO_WritePin(LED_4_GPIO_Port, LED_4_Pin, SET);
+}
+
