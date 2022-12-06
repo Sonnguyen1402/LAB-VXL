@@ -22,10 +22,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-//#include "input_processing.h"
-//#include "timer.h"
-//#include "global.h"
-//#include "mode_processing.h"
 #include "led_processing.h"
 #include "scheduler.h"
 /* USER CODE END Includes */
@@ -102,15 +98,14 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
-  LEDs_Init();
   SCH_Init();
-
-  SCH_Add_Task (increase7SegLED, 300, 0);
-  SCH_Add_Task (toggleLED1, 0, 50);
-  SCH_Add_Task (toggleLED2, 5, 100);
-  SCH_Add_Task (toggleLED3, 10, 150);
-  SCH_Add_Task (toggleLED4, 15, 200);
-  SCH_Add_Task (toggleLED5, 20, 250);
+  Leds_Init();
+  SCH_Add_Task (increase7SegLED, 0, 1000);
+  SCH_Add_Task (toggleLED1, 3000, 500);
+  SCH_Add_Task (toggleLED2, 3000, 1000);
+  SCH_Add_Task (toggleLED3, 3000, 1500);
+  SCH_Add_Task (toggleLED4, 3000, 2000);
+  SCH_Add_Task (toggleLED5, 3000, 2500);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -253,8 +248,8 @@ static void MX_GPIO_Init(void)
                           |LED7_0_4_Pin|LED7_0_5_Pin|LED7_0_6_Pin|LED_BLINKING_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED_RED_Pin|LED_GREEN_Pin|LED_YELLOW_Pin|LED_0_Pin
-                          |LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin
+                          |LED_4_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : LED7_0_0_Pin LED7_0_1_Pin LED7_0_2_Pin LED7_0_3_Pin
                            LED7_0_4_Pin LED7_0_5_Pin LED7_0_6_Pin LED_BLINKING_Pin */
@@ -265,10 +260,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_GREEN_Pin LED_YELLOW_Pin LED_0_Pin
-                           LED_1_Pin LED_2_Pin LED_3_Pin LED_4_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_GREEN_Pin|LED_YELLOW_Pin|LED_0_Pin
-                          |LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin;
+  /*Configure GPIO pins : LED_0_Pin LED_1_Pin LED_2_Pin LED_3_Pin
+                           LED_4_Pin */
+  GPIO_InitStruct.Pin = LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin
+                          |LED_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

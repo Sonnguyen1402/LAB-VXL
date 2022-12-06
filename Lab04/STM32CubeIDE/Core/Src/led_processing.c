@@ -87,15 +87,3 @@ void toggleLED5 () {
 	HAL_GPIO_TogglePin (GPIOB, LED_4_Pin);
 }
 
-void toggleLEDRed () {
-	HAL_GPIO_TogglePin (GPIOB, LED_RED_Pin);
-}
-
-void toggleLEDGreen () {
-	HAL_GPIO_TogglePin (GPIOB, LED_GREEN_Pin);
-}
-
-void toggleLEDYellow () {
-	HAL_GPIO_TogglePin (GPIOB, LED_YELLOW_Pin);
-}
-

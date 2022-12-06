@@ -1,7 +1,7 @@
-scheduler.c:36:6:updateBuffer	40	static
-scheduler.c:62:6:SCH_Update	16	static
-scheduler.c:81:10:SCH_Add_Task	32	static
-scheduler.c:102:6:SCH_Dispatch_Tasks	32	static
-scheduler.c:125:10:SCH_Delete_Task	24	static
-scheduler.c:157:6:SCH_Init	16	static
-scheduler.c:172:6:LEDs_Init	8	static
+scheduler.c:23:6:updateBuffer	24	static
+scheduler.c:36:6:Leds_Init	8	static
+scheduler.c:45:6:SCH_Init	16	static
+scheduler.c:54:6:SCH_Update	4	static
+scheduler.c:58:10:SCH_Add_Task	40	static
+scheduler.c:100:10:SCH_Delete_Task	24	static
+scheduler.c:116:6:SCH_Dispatch_Tasks	32	static

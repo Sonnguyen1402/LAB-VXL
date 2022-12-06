@@ -5,6 +5,3 @@ led_processing.c:74:6:toggleLED2	8	static
 led_processing.c:78:6:toggleLED3	8	static
 led_processing.c:82:6:toggleLED4	8	static
 led_processing.c:86:6:toggleLED5	8	static
-led_processing.c:90:6:toggleLEDRed	8	static
-led_processing.c:94:6:toggleLEDGreen	8	static
-led_processing.c:98:6:toggleLEDYellow	8	static
