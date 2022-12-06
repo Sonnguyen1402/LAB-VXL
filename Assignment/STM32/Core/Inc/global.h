@@ -25,4 +25,5 @@ extern int timeBlinking;
 extern int duration;
 
 extern int pedestrian;
+extern int timeCycle;
 #endif /* INC_GLOBAL_H_ */

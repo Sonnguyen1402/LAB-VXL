@@ -4,11 +4,14 @@
  *  Created on: Oct 26, 2022
  *      Author: ngtha
  */
-
+#include "main.h"
 #include "global.h"
 #include "mode_processing.h"
 #include "led_processing.h"
-#include "timer.h"
+#include "software_timer.h"
+#include "stddef.h"
+#include "stdint.h"
+
 
 void mode_processing(){
 	switch(mode){
@@ -40,6 +43,17 @@ void mode_processing(){
 						trafficLed1 = 0;
 					counter1 = timeDurations[trafficLed1];
 				}
+				if (pedestrian > 0 && pedestrian <= timeCycle) {
+					if (trafficLed1 == 2){
+
+					}
+					displayPedestrianLed(trafficLed1);
+					pedestrian++;
+				}
+				else {
+					displayPedestrianLed(5);
+					pedestrian = 0;
+				}
 				updateTrafficLED(trafficLed0, trafficLed1);
 				setTimer1(1000);
 			}
@@ -50,15 +64,15 @@ void mode_processing(){
 			trafficLed0 = 0;
 			trafficLed1 = 1;
 			initState = 1;
-			updateTrafficLED(trafficLed0, trafficLed1);
+			//updateTrafficLED(trafficLed0, trafficLed1);
 			//setTimer1(10000);
 		}
-		else {
+		/*else {
 			if (getTimer1Flag() == 1){
 				mode = 1;
 				initState = 0;
 			}
-		}
+		}*/
 		updateTrafficLED(trafficLed0, trafficLed1);
 		break;
 	case 3: // Mode 2 - Modify time duration for the red LEDs

@@ -26,6 +26,8 @@
 #include "global.h"
 #include "mode_processing.h"
 #include "led_processing.h"
+#include "software_timer.h"
+#include "input_reading.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,6 +46,9 @@
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim3;
+
+UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
@@ -53,6 +58,8 @@ TIM_HandleTypeDef htim2;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_TIM3_Init(void);
+static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -64,10 +71,22 @@ void testIO(){
 			HAL_GPIO_ReadPin(B0_GPIO_Port, B0_Pin));
 
 	HAL_GPIO_WritePin(D4_GPIO_Port, D4_Pin,
-			HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin));
+			HAL_GPIO_ReadPin(A1_GPIO_Port, A1_Pin));
 
 	HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin,
 			HAL_GPIO_ReadPin(B3_GPIO_Port, B3_Pin));
+}
+
+uint8_t tBuffer[50]={"!7SEG:  #"};
+#define counter_index 			5
+#define counter_length 			2
+
+
+void updateBuffer(int counter) {
+		for (int i=0;  i< counter_length;i++) {
+			tBuffer[counter_length + counter_index - i] = counter%10+48;
+			counter/=10;
+		}
 }
 /* USER CODE END 0 */
 
@@ -100,17 +119,45 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  //setTimer1(1000);
+  setTimerBlinking(500);
   while (1)
   {
-
+	  //__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 20);
+	  //HAL_Delay(1000);
+	  //__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 70);
+	  //HAL_Delay(1000);
     /* USER CODE END WHILE */
 
+	  if(getTimerBlinkingFlag() == 1){
+		updateBuffer(counter0);
+		HAL_UART_Transmit(&huart2, tBuffer, 50, 10);
+		setTimerBlinking(500);
+	  }
+	  fsm_for_input_processing();
+	  mode_processing();
+	  if (pedestrian > 0 && pedestrian <= timeCycle && trafficLed1 == 2) {
+		for (int i = 0; i < 550; i+=20){
+		__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, i);
+			//__HAL_TIM_SET_AUTORELOAD(&htim3, i*2);
+			//__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, i);
+			//HAL_Delay(500);
+		}
+	  }
+	  else{
+		__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 0);
+	  }
+	  //__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -170,9 +217,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 63;
+  htim2.Init.Prescaler = 9;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 9999;
+  htim2.Init.Period = 7999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -193,6 +240,98 @@ static void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 9;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 799;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
+  HAL_TIM_MspPostInit(&htim3);
+
+}
+
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 9600;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
 
 }
 
@@ -228,12 +367,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : Buzzer_Pin */
-  GPIO_InitStruct.Pin = Buzzer_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(Buzzer_GPIO_Port, &GPIO_InitStruct);
-
   /*Configure GPIO pin : B4_Pin */
   GPIO_InitStruct.Pin = B4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -257,9 +390,8 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
-{
-	if(htim -> Instance == TIM2 ){
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	if(htim->Instance == TIM2){
 		button_reading();
 		timerRun();
 	}

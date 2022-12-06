@@ -1,0 +1,5 @@
+main.c:69:6:testIO	16	static
+main.c:136:6:SystemClock_Config	72	static,ignoring_inline_asm
+main.c:85:5:main	72	static,ignoring_inline_asm
+main.c:360:6:HAL_TIM_PeriodElapsedCallback	8	static
+main.c:376:6:Error_Handler	0	static,ignoring_inline_asm

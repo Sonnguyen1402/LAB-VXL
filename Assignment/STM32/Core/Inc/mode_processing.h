@@ -9,5 +9,6 @@
 #define INC_MODE_PROCESSING_H_
 
 void mode_processing();
+//void updateBuffer(int counter);
 
 #endif /* INC_MODE_PROCESSING_H_ */

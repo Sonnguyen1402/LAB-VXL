@@ -1,0 +1,7 @@
+timer.c:24:6:setTimerBlinking	0	static
+timer.c:29:6:setTimer1	0	static
+timer.c:34:6:setTimer2	0	static
+timer.c:39:5:getTimerBlinkingFlag	0	static
+timer.c:47:5:getTimer1Flag	0	static
+timer.c:55:5:getTimer2Flag	0	static
+timer.c:63:6:timerRun	0	static

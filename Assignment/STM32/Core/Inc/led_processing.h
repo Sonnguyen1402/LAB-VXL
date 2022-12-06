@@ -10,6 +10,7 @@
 
 void updateTrafficLED(int trafficLed0, int trafficLed1);
 void toggleTrafficLed(int trafficLed0, int trafficLed1);
+void displayPedestrianLed(int pedestrianLed);
 //void SEG_display();
 //void update7SEG(int index7SEG, int counter0, int counter1);
 

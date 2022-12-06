@@ -1,13 +1,13 @@
 /*
- * timer.c
+ * software_timer.c
  *
- *  Created on: Oct 5, 2022
+ *  Created on: Dec 6, 2022
  *      Author: ngtha
  */
 
 
 #include "main.h"
-#include "timer.h"
+#include "software_timer.h"
 #include "input_reading.h"
 
 int TIME_CYCLE = 10;
@@ -81,5 +81,6 @@ void timerRun(){
 		}
 	}
 }
+
 
 
