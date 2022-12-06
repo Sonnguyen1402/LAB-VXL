@@ -5,7 +5,6 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Core/Src/global.c \
 ../Core/Src/led_processing.c \
 ../Core/Src/main.c \
 ../Core/Src/scheduler.c \
@@ -16,7 +15,6 @@ C_SRCS += \
 ../Core/Src/system_stm32f1xx.c 
 
 OBJS += \
-./Core/Src/global.o \
 ./Core/Src/led_processing.o \
 ./Core/Src/main.o \
 ./Core/Src/scheduler.o \
@@ -27,7 +25,6 @@ OBJS += \
 ./Core/Src/system_stm32f1xx.o 
 
 C_DEPS += \
-./Core/Src/global.d \
 ./Core/Src/led_processing.d \
 ./Core/Src/main.d \
 ./Core/Src/scheduler.d \

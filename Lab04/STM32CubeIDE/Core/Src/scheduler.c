@@ -100,10 +100,10 @@ uint32_t SCH_Add_Task (void (*pFunction)() , uint32_t DELAY, uint32_t PERIOD){
 uint32_t SCH_Delete_Task ( uint32_t taskID ) {
 	uint32_t returnCode = -1 ;
 	if (SCH_task_array[taskID].pTask == 0) {
-		returnCode = RETURN_ERROR; // Not finished
+		returnCode = RETURN_ERROR;
 	}
 	else {
-		returnCode = RETURN_NORMAL; // Not finished
+		returnCode = RETURN_NORMAL;
 	}
 	SCH_task_array[taskID].pTask = 0 ;
 	SCH_task_array[taskID].Delay = 0 ;

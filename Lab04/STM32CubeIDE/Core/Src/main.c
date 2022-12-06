@@ -101,11 +101,11 @@ int main(void)
   SCH_Init();
   Leds_Init();
   SCH_Add_Task (increase7SegLED, 0, 1000);
-  SCH_Add_Task (toggleLED1, 3000, 500);
+  SCH_Add_Task (toggleLED1, 1000, 500);
   SCH_Add_Task (toggleLED2, 3000, 1000);
-  SCH_Add_Task (toggleLED3, 3000, 1500);
-  SCH_Add_Task (toggleLED4, 3000, 2000);
-  SCH_Add_Task (toggleLED5, 3000, 2500);
+  SCH_Add_Task (toggleLED3, 2000, 1500);
+  SCH_Add_Task (toggleLED4, 2000, 2000);
+  SCH_Add_Task (toggleLED5, 4000, 2500);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
