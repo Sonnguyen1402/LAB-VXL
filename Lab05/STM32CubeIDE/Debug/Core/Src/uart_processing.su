@@ -1,0 +1,4 @@
+uart_processing.c:19:6:HAL_UART_RxCpltCallback	16	static
+uart_processing.c:32:9:getBufferFlag	4	static
+uart_processing.c:36:6:resetBufferFlag	4	static
+uart_processing.c:40:9:getChar	4	static
