@@ -10,11 +10,8 @@
 #ifndef INC_COMMAND_PROCESSING_H_
 #define INC_COMMAND_PROCESSING_H_
 
-// Finite state machine for command processing
-void command_parse_fsm();
-// Get state which received "!RST#"
+void command_parser_fsm();
 uint8_t isCommandRST();
-// Get state which received "!OK#"
 uint8_t isCommandOK();
 
 #endif /* INC_COMMAND_PROCESSING_H_ */

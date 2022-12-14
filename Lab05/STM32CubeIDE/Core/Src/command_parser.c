@@ -6,7 +6,7 @@
  */
 
 
-#include "command_processing.h"
+#include "command_parser.h"
 #include "uart_processing.h"
 #include "main.h"
 
@@ -24,7 +24,7 @@ enum CMD {
 
 enum CMD command_state = BEGIN;
 
-void command_parse_fsm() {
+void command_parser_fsm() {
 	switch (command_state) {
 	case BEGIN:
 		if(getChar() == 33) {

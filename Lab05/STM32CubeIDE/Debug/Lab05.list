@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0001826c  00000000  00000000  00032d40  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001054e  00000000  00000000  0004afac  2**0
+ 17 .debug_line   0001053e  00000000  00000000  0004afac  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008d887  00000000  00000000  0005b4fa  2**0
+ 18 .debug_str    0008d884  00000000  00000000  0005b4ea  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000e8d81  2**0
+ 19 .comment      00000053  00000000  00000000  000e8d6e  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00003cc4  00000000  00000000  000e8dd4  2**2
+ 20 .debug_frame  00003cc4  00000000  00000000  000e8dc4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -76,21 +76,21 @@ Disassembly of section .text:
  8000144:	20000074 	.word	0x20000074
  8000148:	08003e7c 	.word	0x08003e7c
 
-0800014c <command_parse_fsm>:
+0800014c <command_parser_fsm>:
 	RECEIVED_OK
 };
 
 enum CMD command_state = BEGIN;
 
-void command_parse_fsm() {
+void command_parser_fsm() {
  800014c:	b580      	push	{r7, lr}
  800014e:	af00      	add	r7, sp, #0
 	switch (command_state) {
- 8000150:	4b67      	ldr	r3, [pc, #412]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 8000150:	4b67      	ldr	r3, [pc, #412]	; (80002f0 <command_parser_fsm+0x1a4>)
  8000152:	781b      	ldrb	r3, [r3, #0]
  8000154:	2b08      	cmp	r3, #8
- 8000156:	f200 80c6 	bhi.w	80002e6 <command_parse_fsm+0x19a>
- 800015a:	a201      	add	r2, pc, #4	; (adr r2, 8000160 <command_parse_fsm+0x14>)
+ 8000156:	f200 80c6 	bhi.w	80002e6 <command_parser_fsm+0x19a>
+ 800015a:	a201      	add	r2, pc, #4	; (adr r2, 8000160 <command_parser_fsm+0x14>)
  800015c:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
  8000160:	08000185 	.word	0x08000185
  8000164:	08000199 	.word	0x08000199
@@ -106,22 +106,22 @@ void command_parse_fsm() {
  8000184:	f000 fd00 	bl	8000b88 <getChar>
  8000188:	4603      	mov	r3, r0
  800018a:	2b21      	cmp	r3, #33	; 0x21
- 800018c:	f040 80ad 	bne.w	80002ea <command_parse_fsm+0x19e>
+ 800018c:	f040 80ad 	bne.w	80002ea <command_parser_fsm+0x19e>
 			command_state = EXCLAMATION_POINT;
- 8000190:	4b57      	ldr	r3, [pc, #348]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 8000190:	4b57      	ldr	r3, [pc, #348]	; (80002f0 <command_parser_fsm+0x1a4>)
  8000192:	2201      	movs	r2, #1
  8000194:	701a      	strb	r2, [r3, #0]
 		}
 		break;
- 8000196:	e0a8      	b.n	80002ea <command_parse_fsm+0x19e>
+ 8000196:	e0a8      	b.n	80002ea <command_parser_fsm+0x19e>
 	case EXCLAMATION_POINT:
 		if(getChar() == 33) {
  8000198:	f000 fcf6 	bl	8000b88 <getChar>
  800019c:	4603      	mov	r3, r0
  800019e:	2b21      	cmp	r3, #33	; 0x21
- 80001a0:	d103      	bne.n	80001aa <command_parse_fsm+0x5e>
+ 80001a0:	d103      	bne.n	80001aa <command_parser_fsm+0x5e>
 			command_state = EXCLAMATION_POINT;
- 80001a2:	4b53      	ldr	r3, [pc, #332]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80001a2:	4b53      	ldr	r3, [pc, #332]	; (80002f0 <command_parser_fsm+0x1a4>)
  80001a4:	2201      	movs	r2, #1
  80001a6:	701a      	strb	r2, [r3, #0]
 			command_state = O_CHARACTER;
@@ -130,43 +130,43 @@ void command_parse_fsm() {
 			command_state = BEGIN;
 		}
 		break;
- 80001a8:	e0a0      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80001a8:	e0a0      	b.n	80002ec <command_parser_fsm+0x1a0>
 		else if(getChar() == 82) {
  80001aa:	f000 fced 	bl	8000b88 <getChar>
  80001ae:	4603      	mov	r3, r0
  80001b0:	2b52      	cmp	r3, #82	; 0x52
- 80001b2:	d103      	bne.n	80001bc <command_parse_fsm+0x70>
+ 80001b2:	d103      	bne.n	80001bc <command_parser_fsm+0x70>
 			command_state = R_CHARACTER;
- 80001b4:	4b4e      	ldr	r3, [pc, #312]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80001b4:	4b4e      	ldr	r3, [pc, #312]	; (80002f0 <command_parser_fsm+0x1a4>)
  80001b6:	2202      	movs	r2, #2
  80001b8:	701a      	strb	r2, [r3, #0]
 		break;
- 80001ba:	e097      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80001ba:	e097      	b.n	80002ec <command_parser_fsm+0x1a0>
 		else if(getChar() == 79) {
  80001bc:	f000 fce4 	bl	8000b88 <getChar>
  80001c0:	4603      	mov	r3, r0
  80001c2:	2b4f      	cmp	r3, #79	; 0x4f
- 80001c4:	d103      	bne.n	80001ce <command_parse_fsm+0x82>
+ 80001c4:	d103      	bne.n	80001ce <command_parser_fsm+0x82>
 			command_state = O_CHARACTER;
- 80001c6:	4b4a      	ldr	r3, [pc, #296]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80001c6:	4b4a      	ldr	r3, [pc, #296]	; (80002f0 <command_parser_fsm+0x1a4>)
  80001c8:	2205      	movs	r2, #5
  80001ca:	701a      	strb	r2, [r3, #0]
 		break;
- 80001cc:	e08e      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80001cc:	e08e      	b.n	80002ec <command_parser_fsm+0x1a0>
 			command_state = BEGIN;
- 80001ce:	4b48      	ldr	r3, [pc, #288]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80001ce:	4b48      	ldr	r3, [pc, #288]	; (80002f0 <command_parser_fsm+0x1a4>)
  80001d0:	2200      	movs	r2, #0
  80001d2:	701a      	strb	r2, [r3, #0]
 		break;
- 80001d4:	e08a      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80001d4:	e08a      	b.n	80002ec <command_parser_fsm+0x1a0>
 	case R_CHARACTER:
 		if(getChar() == 33) {
  80001d6:	f000 fcd7 	bl	8000b88 <getChar>
  80001da:	4603      	mov	r3, r0
  80001dc:	2b21      	cmp	r3, #33	; 0x21
- 80001de:	d103      	bne.n	80001e8 <command_parse_fsm+0x9c>
+ 80001de:	d103      	bne.n	80001e8 <command_parser_fsm+0x9c>
 			command_state = EXCLAMATION_POINT;
- 80001e0:	4b43      	ldr	r3, [pc, #268]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80001e0:	4b43      	ldr	r3, [pc, #268]	; (80002f0 <command_parser_fsm+0x1a4>)
  80001e2:	2201      	movs	r2, #1
  80001e4:	701a      	strb	r2, [r3, #0]
 			command_state = S_CHARACTER;
@@ -175,32 +175,32 @@ void command_parse_fsm() {
 			command_state = BEGIN;
 		}
 		break;
- 80001e6:	e081      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80001e6:	e081      	b.n	80002ec <command_parser_fsm+0x1a0>
 		else if(getChar() == 83) {
  80001e8:	f000 fcce 	bl	8000b88 <getChar>
  80001ec:	4603      	mov	r3, r0
  80001ee:	2b53      	cmp	r3, #83	; 0x53
- 80001f0:	d103      	bne.n	80001fa <command_parse_fsm+0xae>
+ 80001f0:	d103      	bne.n	80001fa <command_parser_fsm+0xae>
 			command_state = S_CHARACTER;
- 80001f2:	4b3f      	ldr	r3, [pc, #252]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80001f2:	4b3f      	ldr	r3, [pc, #252]	; (80002f0 <command_parser_fsm+0x1a4>)
  80001f4:	2203      	movs	r2, #3
  80001f6:	701a      	strb	r2, [r3, #0]
 		break;
- 80001f8:	e078      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80001f8:	e078      	b.n	80002ec <command_parser_fsm+0x1a0>
 			command_state = BEGIN;
- 80001fa:	4b3d      	ldr	r3, [pc, #244]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80001fa:	4b3d      	ldr	r3, [pc, #244]	; (80002f0 <command_parser_fsm+0x1a4>)
  80001fc:	2200      	movs	r2, #0
  80001fe:	701a      	strb	r2, [r3, #0]
 		break;
- 8000200:	e074      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 8000200:	e074      	b.n	80002ec <command_parser_fsm+0x1a0>
 	case S_CHARACTER:
 		if(getChar() == 33) {
  8000202:	f000 fcc1 	bl	8000b88 <getChar>
  8000206:	4603      	mov	r3, r0
  8000208:	2b21      	cmp	r3, #33	; 0x21
- 800020a:	d103      	bne.n	8000214 <command_parse_fsm+0xc8>
+ 800020a:	d103      	bne.n	8000214 <command_parser_fsm+0xc8>
 			command_state = EXCLAMATION_POINT;
- 800020c:	4b38      	ldr	r3, [pc, #224]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 800020c:	4b38      	ldr	r3, [pc, #224]	; (80002f0 <command_parser_fsm+0x1a4>)
  800020e:	2201      	movs	r2, #1
  8000210:	701a      	strb	r2, [r3, #0]
 			command_state = T_CHARACTER;
@@ -209,32 +209,32 @@ void command_parse_fsm() {
 			command_state = BEGIN;
 		}
 		break;
- 8000212:	e06b      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 8000212:	e06b      	b.n	80002ec <command_parser_fsm+0x1a0>
 		else if(getChar() == 84) {
  8000214:	f000 fcb8 	bl	8000b88 <getChar>
  8000218:	4603      	mov	r3, r0
  800021a:	2b54      	cmp	r3, #84	; 0x54
- 800021c:	d103      	bne.n	8000226 <command_parse_fsm+0xda>
+ 800021c:	d103      	bne.n	8000226 <command_parser_fsm+0xda>
 			command_state = T_CHARACTER;
- 800021e:	4b34      	ldr	r3, [pc, #208]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 800021e:	4b34      	ldr	r3, [pc, #208]	; (80002f0 <command_parser_fsm+0x1a4>)
  8000220:	2204      	movs	r2, #4
  8000222:	701a      	strb	r2, [r3, #0]
 		break;
- 8000224:	e062      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 8000224:	e062      	b.n	80002ec <command_parser_fsm+0x1a0>
 			command_state = BEGIN;
- 8000226:	4b32      	ldr	r3, [pc, #200]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 8000226:	4b32      	ldr	r3, [pc, #200]	; (80002f0 <command_parser_fsm+0x1a4>)
  8000228:	2200      	movs	r2, #0
  800022a:	701a      	strb	r2, [r3, #0]
 		break;
- 800022c:	e05e      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 800022c:	e05e      	b.n	80002ec <command_parser_fsm+0x1a0>
 	case T_CHARACTER:
 		if(getChar() == 33) {
  800022e:	f000 fcab 	bl	8000b88 <getChar>
  8000232:	4603      	mov	r3, r0
  8000234:	2b21      	cmp	r3, #33	; 0x21
- 8000236:	d103      	bne.n	8000240 <command_parse_fsm+0xf4>
+ 8000236:	d103      	bne.n	8000240 <command_parser_fsm+0xf4>
 			command_state = EXCLAMATION_POINT;
- 8000238:	4b2d      	ldr	r3, [pc, #180]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 8000238:	4b2d      	ldr	r3, [pc, #180]	; (80002f0 <command_parser_fsm+0x1a4>)
  800023a:	2201      	movs	r2, #1
  800023c:	701a      	strb	r2, [r3, #0]
 			command_state = RECEIVED_RST;
@@ -243,32 +243,32 @@ void command_parse_fsm() {
 			command_state = BEGIN;
 		}
 		break;
- 800023e:	e055      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 800023e:	e055      	b.n	80002ec <command_parser_fsm+0x1a0>
 		else if(getChar() == 35) {
  8000240:	f000 fca2 	bl	8000b88 <getChar>
  8000244:	4603      	mov	r3, r0
  8000246:	2b23      	cmp	r3, #35	; 0x23
- 8000248:	d103      	bne.n	8000252 <command_parse_fsm+0x106>
+ 8000248:	d103      	bne.n	8000252 <command_parser_fsm+0x106>
 			command_state = RECEIVED_RST;
- 800024a:	4b29      	ldr	r3, [pc, #164]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 800024a:	4b29      	ldr	r3, [pc, #164]	; (80002f0 <command_parser_fsm+0x1a4>)
  800024c:	2207      	movs	r2, #7
  800024e:	701a      	strb	r2, [r3, #0]
 		break;
- 8000250:	e04c      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 8000250:	e04c      	b.n	80002ec <command_parser_fsm+0x1a0>
 			command_state = BEGIN;
- 8000252:	4b27      	ldr	r3, [pc, #156]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 8000252:	4b27      	ldr	r3, [pc, #156]	; (80002f0 <command_parser_fsm+0x1a4>)
  8000254:	2200      	movs	r2, #0
  8000256:	701a      	strb	r2, [r3, #0]
 		break;
- 8000258:	e048      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 8000258:	e048      	b.n	80002ec <command_parser_fsm+0x1a0>
 	case O_CHARACTER:
 		if(getChar() == 33) {
  800025a:	f000 fc95 	bl	8000b88 <getChar>
  800025e:	4603      	mov	r3, r0
  8000260:	2b21      	cmp	r3, #33	; 0x21
- 8000262:	d103      	bne.n	800026c <command_parse_fsm+0x120>
+ 8000262:	d103      	bne.n	800026c <command_parser_fsm+0x120>
 			command_state = EXCLAMATION_POINT;
- 8000264:	4b22      	ldr	r3, [pc, #136]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 8000264:	4b22      	ldr	r3, [pc, #136]	; (80002f0 <command_parser_fsm+0x1a4>)
  8000266:	2201      	movs	r2, #1
  8000268:	701a      	strb	r2, [r3, #0]
 			command_state = K_CHARACTER;
@@ -277,32 +277,32 @@ void command_parse_fsm() {
 			command_state = BEGIN;
 		}
 		break;
- 800026a:	e03f      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 800026a:	e03f      	b.n	80002ec <command_parser_fsm+0x1a0>
 		else if(getChar() == 75) {
  800026c:	f000 fc8c 	bl	8000b88 <getChar>
  8000270:	4603      	mov	r3, r0
  8000272:	2b4b      	cmp	r3, #75	; 0x4b
- 8000274:	d103      	bne.n	800027e <command_parse_fsm+0x132>
+ 8000274:	d103      	bne.n	800027e <command_parser_fsm+0x132>
 			command_state = K_CHARACTER;
- 8000276:	4b1e      	ldr	r3, [pc, #120]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 8000276:	4b1e      	ldr	r3, [pc, #120]	; (80002f0 <command_parser_fsm+0x1a4>)
  8000278:	2206      	movs	r2, #6
  800027a:	701a      	strb	r2, [r3, #0]
 		break;
- 800027c:	e036      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 800027c:	e036      	b.n	80002ec <command_parser_fsm+0x1a0>
 			command_state = BEGIN;
- 800027e:	4b1c      	ldr	r3, [pc, #112]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 800027e:	4b1c      	ldr	r3, [pc, #112]	; (80002f0 <command_parser_fsm+0x1a4>)
  8000280:	2200      	movs	r2, #0
  8000282:	701a      	strb	r2, [r3, #0]
 		break;
- 8000284:	e032      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 8000284:	e032      	b.n	80002ec <command_parser_fsm+0x1a0>
 	case K_CHARACTER:
 		if(getChar() == 33) {
  8000286:	f000 fc7f 	bl	8000b88 <getChar>
  800028a:	4603      	mov	r3, r0
  800028c:	2b21      	cmp	r3, #33	; 0x21
- 800028e:	d103      	bne.n	8000298 <command_parse_fsm+0x14c>
+ 800028e:	d103      	bne.n	8000298 <command_parser_fsm+0x14c>
 			command_state = EXCLAMATION_POINT;
- 8000290:	4b17      	ldr	r3, [pc, #92]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 8000290:	4b17      	ldr	r3, [pc, #92]	; (80002f0 <command_parser_fsm+0x1a4>)
  8000292:	2201      	movs	r2, #1
  8000294:	701a      	strb	r2, [r3, #0]
 			command_state = RECEIVED_OK;
@@ -311,68 +311,68 @@ void command_parse_fsm() {
 			command_state = BEGIN;
 		}
 		break;
- 8000296:	e029      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 8000296:	e029      	b.n	80002ec <command_parser_fsm+0x1a0>
 		else if(getChar() == 35) {
  8000298:	f000 fc76 	bl	8000b88 <getChar>
  800029c:	4603      	mov	r3, r0
  800029e:	2b23      	cmp	r3, #35	; 0x23
- 80002a0:	d103      	bne.n	80002aa <command_parse_fsm+0x15e>
+ 80002a0:	d103      	bne.n	80002aa <command_parser_fsm+0x15e>
 			command_state = RECEIVED_OK;
- 80002a2:	4b13      	ldr	r3, [pc, #76]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80002a2:	4b13      	ldr	r3, [pc, #76]	; (80002f0 <command_parser_fsm+0x1a4>)
  80002a4:	2208      	movs	r2, #8
  80002a6:	701a      	strb	r2, [r3, #0]
 		break;
- 80002a8:	e020      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80002a8:	e020      	b.n	80002ec <command_parser_fsm+0x1a0>
 			command_state = BEGIN;
- 80002aa:	4b11      	ldr	r3, [pc, #68]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80002aa:	4b11      	ldr	r3, [pc, #68]	; (80002f0 <command_parser_fsm+0x1a4>)
  80002ac:	2200      	movs	r2, #0
  80002ae:	701a      	strb	r2, [r3, #0]
 		break;
- 80002b0:	e01c      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80002b0:	e01c      	b.n	80002ec <command_parser_fsm+0x1a0>
 	case RECEIVED_RST:
 		if(getChar() == 33) {
  80002b2:	f000 fc69 	bl	8000b88 <getChar>
  80002b6:	4603      	mov	r3, r0
  80002b8:	2b21      	cmp	r3, #33	; 0x21
- 80002ba:	d103      	bne.n	80002c4 <command_parse_fsm+0x178>
+ 80002ba:	d103      	bne.n	80002c4 <command_parser_fsm+0x178>
 			command_state = EXCLAMATION_POINT;
- 80002bc:	4b0c      	ldr	r3, [pc, #48]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80002bc:	4b0c      	ldr	r3, [pc, #48]	; (80002f0 <command_parser_fsm+0x1a4>)
  80002be:	2201      	movs	r2, #1
  80002c0:	701a      	strb	r2, [r3, #0]
 		}
 		else command_state = BEGIN;
 		break;
- 80002c2:	e013      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80002c2:	e013      	b.n	80002ec <command_parser_fsm+0x1a0>
 		else command_state = BEGIN;
- 80002c4:	4b0a      	ldr	r3, [pc, #40]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80002c4:	4b0a      	ldr	r3, [pc, #40]	; (80002f0 <command_parser_fsm+0x1a4>)
  80002c6:	2200      	movs	r2, #0
  80002c8:	701a      	strb	r2, [r3, #0]
 		break;
- 80002ca:	e00f      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80002ca:	e00f      	b.n	80002ec <command_parser_fsm+0x1a0>
 	case RECEIVED_OK:
 		if(getChar() == 33) {
  80002cc:	f000 fc5c 	bl	8000b88 <getChar>
  80002d0:	4603      	mov	r3, r0
  80002d2:	2b21      	cmp	r3, #33	; 0x21
- 80002d4:	d103      	bne.n	80002de <command_parse_fsm+0x192>
+ 80002d4:	d103      	bne.n	80002de <command_parser_fsm+0x192>
 			command_state = EXCLAMATION_POINT;
- 80002d6:	4b06      	ldr	r3, [pc, #24]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80002d6:	4b06      	ldr	r3, [pc, #24]	; (80002f0 <command_parser_fsm+0x1a4>)
  80002d8:	2201      	movs	r2, #1
  80002da:	701a      	strb	r2, [r3, #0]
 		}
 		else command_state = BEGIN;
 		break;
- 80002dc:	e006      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80002dc:	e006      	b.n	80002ec <command_parser_fsm+0x1a0>
 		else command_state = BEGIN;
- 80002de:	4b04      	ldr	r3, [pc, #16]	; (80002f0 <command_parse_fsm+0x1a4>)
+ 80002de:	4b04      	ldr	r3, [pc, #16]	; (80002f0 <command_parser_fsm+0x1a4>)
  80002e0:	2200      	movs	r2, #0
  80002e2:	701a      	strb	r2, [r3, #0]
 		break;
- 80002e4:	e002      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80002e4:	e002      	b.n	80002ec <command_parser_fsm+0x1a0>
 	default:
 		break;
  80002e6:	bf00      	nop
- 80002e8:	e000      	b.n	80002ec <command_parse_fsm+0x1a0>
+ 80002e8:	e000      	b.n	80002ec <command_parser_fsm+0x1a0>
 		break;
  80002ea:	bf00      	nop
 	}
@@ -494,8 +494,8 @@ int main(void)
  8000376:	4603      	mov	r3, r0
  8000378:	2b01      	cmp	r3, #1
  800037a:	d103      	bne.n	8000384 <main+0x50>
-		  command_parse_fsm();
- 800037c:	f7ff fee6 	bl	800014c <command_parse_fsm>
+		  command_parser_fsm();
+ 800037c:	f7ff fee6 	bl	800014c <command_parser_fsm>
 		  // Set buffer_flag = 0
 		  resetBufferFlag();
  8000380:	f000 fbf6 	bl	8000b70 <resetBufferFlag>
@@ -1854,7 +1854,7 @@ void uart_communication_fsm(){
  8000a50:	701a      	strb	r2, [r3, #0]
 		break;
  8000a52:	e035      	b.n	8000ac0 <uart_communication_fsm+0xa4>
-		HAL_UART_Transmit(&huart2, (void *)buffer_uart, sprintf(buffer_uart, "\r\n!ADC=%d#", adc_value), 200);
+		HAL_UART_Transmit(&huart2, (void *)buffer_uart, sprintf(buffer_uart, "\r\n!ADC=%lu#", adc_value), 200);
  8000a54:	4b1f      	ldr	r3, [pc, #124]	; (8000ad4 <uart_communication_fsm+0xb8>)
  8000a56:	681b      	ldr	r3, [r3, #0]
  8000a58:	461a      	mov	r2, r3

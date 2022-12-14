@@ -11,10 +11,14 @@
 
 void setTimer0 (int );
 void setTimer1 (int );
-void timer_run ( void );
-void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *);
+
 int getTimer0Flag ( void );
 int getTimer1Flag ( void );
+
+void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *);
+
 void stopTimer0 ();
+
+void timer_run ( void );
 
 #endif /* INC_TIMER_H_ */

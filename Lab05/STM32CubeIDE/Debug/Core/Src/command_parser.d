@@ -1,5 +1,5 @@
-Core/Src/command_processing.o: ../Core/Src/command_processing.c \
- ../Core/Inc/command_processing.h ../Core/Inc/main.h \
+Core/Src/command_parser.o: ../Core/Src/command_parser.c \
+ ../Core/Inc/command_parser.h ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -29,7 +29,7 @@ Core/Src/command_processing.o: ../Core/Src/command_processing.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  ../Core/Inc/uart_processing.h ../Core/Inc/main.h
 
-../Core/Inc/command_processing.h:
+../Core/Inc/command_parser.h:
 
 ../Core/Inc/main.h:
 

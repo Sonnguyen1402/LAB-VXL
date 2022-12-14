@@ -22,9 +22,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "command_parser.h"
 #include "stdint.h"
 #include "timer.h"
-#include "command_processing.h"
 #include "uart_processing.h"
 #include "uart_communicating.h"
 /* USER CODE END Includes */
@@ -114,8 +114,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  if( getBufferFlag () == 1) {
-		  command_parse_fsm();
+	  if(getBufferFlag () == 1) {
+		  command_parser_fsm();
 		  // Set buffer_flag = 0
 		  resetBufferFlag();
 	  }

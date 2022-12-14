@@ -24,19 +24,18 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 		buffer_flag = 1;
 		HAL_UART_Receive_IT(&huart2, &temp, 1);
-		// Display character have just entered
 		HAL_UART_Transmit(&huart2, &temp, 1, 50);
 	}
 }
 
-uint8_t getBufferFlag () {
+uint8_t getBufferFlag(){
 	return buffer_flag;
 }
 
-void resetBufferFlag () {
+void resetBufferFlag(){
 	buffer_flag = 0;
 }
 
-uint8_t getChar () {
+uint8_t getChar(){
 	return temp;
 }

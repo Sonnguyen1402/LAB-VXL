@@ -5,7 +5,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Core/Src/command_processing.c \
+../Core/Src/command_parser.c \
 ../Core/Src/main.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
 ../Core/Src/stm32f1xx_it.c \
@@ -17,7 +17,7 @@ C_SRCS += \
 ../Core/Src/uart_processing.c 
 
 OBJS += \
-./Core/Src/command_processing.o \
+./Core/Src/command_parser.o \
 ./Core/Src/main.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
 ./Core/Src/stm32f1xx_it.o \
@@ -29,7 +29,7 @@ OBJS += \
 ./Core/Src/uart_processing.o 
 
 C_DEPS += \
-./Core/Src/command_processing.d \
+./Core/Src/command_parser.d \
 ./Core/Src/main.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
 ./Core/Src/stm32f1xx_it.d \
