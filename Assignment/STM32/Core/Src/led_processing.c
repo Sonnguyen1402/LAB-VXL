@@ -99,9 +99,12 @@ void displayPedestrianLed(int pedestrianLed){
 		HAL_GPIO_WritePin(D7_GPIO_Port, D7_Pin, SET);
 		break;
 	case 2:
-		HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, SET);
+		HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, RESET);
 		HAL_GPIO_WritePin(D7_GPIO_Port, D7_Pin, SET);
 		break;
+	case 3:
+		HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, RESET);
+		HAL_GPIO_TogglePin(D7_GPIO_Port, D7_Pin);
 	default:
 		HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, RESET);
 		HAL_GPIO_WritePin(D7_GPIO_Port, D7_Pin, RESET);

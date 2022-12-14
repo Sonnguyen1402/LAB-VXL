@@ -11,10 +11,12 @@
 int getTimerBlinkingFlag();
 int getTimer1Flag();
 int getTimer2Flag();
+int getTimer3Flag();
 
 void setTimerBlinking(int duration);
 void setTimer1(int duration);
 void setTimer2(int duration);
+void setTimer3(int duration);
 
 void timerRun();
 

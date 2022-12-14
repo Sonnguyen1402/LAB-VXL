@@ -1,7 +1,9 @@
-software_timer.c:24:6:setTimerBlinking	16	static
-software_timer.c:29:6:setTimer1	16	static
-software_timer.c:34:6:setTimer2	16	static
-software_timer.c:39:5:getTimerBlinkingFlag	4	static
-software_timer.c:47:5:getTimer1Flag	4	static
-software_timer.c:55:5:getTimer2Flag	4	static
-software_timer.c:63:6:timerRun	4	static
+software_timer.c:27:6:setTimerBlinking	16	static
+software_timer.c:32:6:setTimer1	16	static
+software_timer.c:37:6:setTimer2	16	static
+software_timer.c:42:6:setTimer3	16	static
+software_timer.c:47:5:getTimerBlinkingFlag	4	static
+software_timer.c:55:5:getTimer1Flag	4	static
+software_timer.c:63:5:getTimer2Flag	4	static
+software_timer.c:71:5:getTimer3Flag	4	static
+software_timer.c:79:6:timerRun	4	static

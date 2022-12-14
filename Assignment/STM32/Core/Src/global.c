@@ -9,7 +9,7 @@
 
 int mode = 0;
 
-int timeDurations[3] = {5, 3, 2}; // red, green, yellow time
+int timeDurations[3] = {7, 4, 3}; // red, green, yellow time
 
 int initState = 0;
 

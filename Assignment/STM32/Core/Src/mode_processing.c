@@ -44,8 +44,8 @@ void mode_processing(){
 					counter1 = timeDurations[trafficLed1];
 				}
 				if (pedestrian > 0 && pedestrian <= timeCycle) {
-					if (trafficLed1 == 2){
-
+					if (trafficLed1 == 2 && counter1 == timeDurations[2]){
+						setTimer3(10); //100
 					}
 					displayPedestrianLed(trafficLed1);
 					pedestrian++;

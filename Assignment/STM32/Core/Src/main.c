@@ -83,7 +83,7 @@ uint8_t tBuffer[50]={"!7SEG:  #"};
 
 
 void updateBuffer(int counter) {
-		for (int i=0;  i< counter_length;i++) {
+		for (int i=0; i< counter_length; i++) {
 			tBuffer[counter_length + counter_index - i] = counter%10+48;
 			counter/=10;
 		}
@@ -130,7 +130,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   //setTimer1(1000);
-  setTimerBlinking(500);
+  int dutyCycle = 0;
+  setTimerBlinking(200);
   while (1)
   {
 	  //__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 20);
@@ -142,20 +143,28 @@ int main(void)
 	  if(getTimerBlinkingFlag() == 1){
 		updateBuffer(counter0);
 		HAL_UART_Transmit(&huart2, tBuffer, 50, 10);
-		setTimerBlinking(500);
+		setTimerBlinking(200);
 	  }
 	  fsm_for_input_processing();
 	  mode_processing();
 	  if (pedestrian > 0 && pedestrian <= timeCycle && trafficLed1 == 2) {
-		for (int i = 0; i < 550; i+=20){
-		__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, i);
+		//for (int i = 0; i < 100; i+=20){
+		//__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, i);
 			//__HAL_TIM_SET_AUTORELOAD(&htim3, i*2);
 			//__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, i);
 			//HAL_Delay(500);
-		}
+		//}
+		  if (getTimer3Flag() == 1){
+			  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, dutyCycle);
+			  if (dutyCycle <= 100) dutyCycle += 20;
+			  displayPedestrianLed(3);
+			  setTimer3(counter1 * 200); //150
+		  }
 	  }
 	  else{
 		__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 0);
+		dutyCycle = 0;
+		setTimer3(0);
 	  }
 	  //__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
     /* USER CODE BEGIN 3 */

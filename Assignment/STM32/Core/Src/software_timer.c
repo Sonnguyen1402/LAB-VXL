@@ -21,6 +21,9 @@ int timer1_flag = 0;
 int timer2_counter = 0;
 int timer2_flag = 0;
 
+int timer3_counter = 0;
+int timer3_flag = 0;
+
 void setTimerBlinking(int duration){
 	timerBlinking_counter = duration / TIME_CYCLE;
 	timerBlinking_flag = 0;
@@ -34,6 +37,11 @@ void setTimer1(int duration){
 void setTimer2(int duration){
 	timer2_counter = duration / TIME_CYCLE;
 	timer2_flag = 0;
+}
+
+void setTimer3(int duration){
+	timer3_counter = duration / TIME_CYCLE;
+	timer3_flag = 0;
 }
 
 int getTimerBlinkingFlag(){
@@ -60,6 +68,14 @@ int getTimer2Flag(){
 	return 0;
 }
 
+int getTimer3Flag(){
+	if (timer3_flag == 1){
+		timer3_flag = 0;
+		return 1;
+	}
+	return 0;
+}
+
 void timerRun(){
 	if (timerBlinking_counter > 0){
 		timerBlinking_counter--;
@@ -78,6 +94,12 @@ void timerRun(){
 		timer2_counter--;
 		if (timer2_counter <= 0){
 			timer2_flag = 1;
+		}
+	}
+	if (timer3_counter > 0){
+		timer3_counter--;
+		if (timer3_counter <= 0){
+			timer3_flag = 1;
 		}
 	}
 }
