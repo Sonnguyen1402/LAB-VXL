@@ -59,7 +59,7 @@ void mode_processing(){
 			}
 		}
 		break;
-	case 2:
+	case 2: // Mode 2: Manual control
 		if (initState == 0){
 			trafficLed0 = 0;
 			trafficLed1 = 1;
@@ -74,8 +74,9 @@ void mode_processing(){
 			}
 		}*/
 		updateTrafficLED(trafficLed0, trafficLed1);
+		counter0 = mode;
 		break;
-	case 3: // Mode 2 - Modify time duration for the red LEDs
+	case 3: // Mode 3 - Modify time duration for the red LEDs
 		if (initState == 0){
 			trafficLed0 = 0;
 			trafficLed1 = 0;
@@ -93,7 +94,7 @@ void mode_processing(){
 		counter0 = duration;
 		counter1 = mode;
 		break;
-	case 4: // Mode 3 - Modify time duration for the amber LEDs
+	case 4: // Mode 4 - Modify time duration for the amber LEDs
 		if (initState == 0){
 			trafficLed0 = 2;
 			trafficLed1 = 2;
@@ -111,7 +112,7 @@ void mode_processing(){
 		counter0 = duration;
 		counter1 = mode;
 		break;
-	case 5: // Mode 4 - Modify time duration for the green LEDs
+	case 5: // Mode 5 - Modify time duration for the green LEDs
 		if (initState == 0){
 			trafficLed0 = 1;
 			trafficLed1 = 1;

@@ -90,22 +90,22 @@ void toggleTrafficLed(int trafficLed0, int trafficLed1){
 
 void displayPedestrianLed(int pedestrianLed){
 	switch (pedestrianLed){
-	case 0:
+	case 0: // Red
 		HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, SET);
 		HAL_GPIO_WritePin(D7_GPIO_Port, D7_Pin, RESET);
 		break;
-	case 1:
+	case 1: //Green
 		HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, RESET);
 		HAL_GPIO_WritePin(D7_GPIO_Port, D7_Pin, SET);
 		break;
-	case 2:
+	case 2: //Green
 		HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, RESET);
 		HAL_GPIO_WritePin(D7_GPIO_Port, D7_Pin, SET);
 		break;
-	case 3:
+	case 3: // Toggle
 		HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, RESET);
 		HAL_GPIO_TogglePin(D7_GPIO_Port, D7_Pin);
-	default:
+	default: // Off
 		HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin, RESET);
 		HAL_GPIO_WritePin(D7_GPIO_Port, D7_Pin, RESET);
 		break;

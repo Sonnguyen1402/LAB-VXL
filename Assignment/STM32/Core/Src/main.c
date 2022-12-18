@@ -134,11 +134,6 @@ int main(void)
   setTimerBlinking(200);
   while (1)
   {
-	  //__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 20);
-	  //HAL_Delay(1000);
-	  //__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 70);
-	  //HAL_Delay(1000);
-    /* USER CODE END WHILE */
 
 	  if(getTimerBlinkingFlag() == 1){
 		updateBuffer(counter0);
@@ -148,16 +143,10 @@ int main(void)
 	  fsm_for_input_processing();
 	  mode_processing();
 	  if (pedestrian > 0 && pedestrian <= timeCycle && trafficLed1 == 2) {
-		//for (int i = 0; i < 100; i+=20){
-		//__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, i);
-			//__HAL_TIM_SET_AUTORELOAD(&htim3, i*2);
-			//__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, i);
-			//HAL_Delay(500);
-		//}
 		  if (getTimer3Flag() == 1){
 			  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, dutyCycle);
 			  if (dutyCycle <= 100) dutyCycle += 20;
-			  displayPedestrianLed(3);
+			  //displayPedestrianLed(3);
 			  setTimer3(counter1 * 200); //150
 		  }
 	  }
@@ -166,10 +155,7 @@ int main(void)
 		dutyCycle = 0;
 		setTimer3(0);
 	  }
-	  //__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
-    /* USER CODE BEGIN 3 */
   }
-  /* USER CODE END 3 */
 }
 
 /**

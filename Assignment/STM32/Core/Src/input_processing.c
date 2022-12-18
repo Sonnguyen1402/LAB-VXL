@@ -21,11 +21,11 @@ void fsm_for_input_processing ( void ){
 			if( is_button_pressed(i)){
 				buttonState [i] = BUTTON_PRESSED;
 				switch (i){
-				case 0: // Button 1: pedestrian
+				case 0: // Button 0: pedestrian
 					pedestrian = 1;
 					timeCycle = (timeDurations[0] + timeDurations[1] + timeDurations[2]) * 2;
 					break;
-				case 1: // Button 2: increase Mode
+				case 1: // Button 1: increase Mode
 					initState = 0;
 					if (mode >= 5) mode = 1;
 					else mode++;
